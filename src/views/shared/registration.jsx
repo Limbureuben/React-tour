@@ -1,12 +1,32 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Box, Button, Container,  TextField,Typography,Paper,FormControl,
+  InputLabel,OutlinedInput,InputAdornment,IconButton,FormHelperText,Fade,Zoom,Slide } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { motion } from 'framer-motion';
+import { styled } from '@mui/system';
 
-export default function AnimatedRegistrationForm() {
+// Styled components for animations
+const AnimatedContainer = styled(motion.div)({
+  width: '100%'
+});
+
+const AnimatedPaper = styled(motion(Paper))({
+  padding: '2rem',
+  marginTop: '2rem'
+});
+
+const RegistrationForm = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
+  const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -14,136 +34,212 @@ export default function AnimatedRegistrationForm() {
       ...prev,
       [name]: value
     }));
+    
+    // Clear error when user types
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const validate = () => {
+    const newErrors = {};
+    
+    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
+    
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+    }
+    
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
+    }
+    
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (validate()) {
+      setIsSubmitting(true);
+      
+      // Simulate API call
+      setTimeout(() => {
+        console.log('Form submitted:', formData);
+        setIsSubmitting(false);
+        // Add your success handling here (redirect, notification, etc.)
+      }, 1500);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center p-4">
-      <div className="card w-full max-w-md shadow-2xl bg-base-100 transition-all duration-500 transform hover:scale-[1.01]">
-        <div className="card-body p-8">
-          {/* Header */}
-          <div className="text-center mb-6 transition-opacity duration-300 opacity-100">
-            <h2 className="text-3xl font-bold text-gray-800">Join Us Today</h2>
-            <p className="text-gray-600 mt-2">Create your account in just a minute</p>
-          </div>
-
-          <form className="space-y-5">
-            {/* Name Field */}
-            <div className="form-control transition-all duration-300 delay-100">
-              <label className="label">
-                <span className="label-text text-gray-700 font-medium">Full Name</span>
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="John Doe"
-                className="input input-bordered focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                required
-              />
-            </div>
-
-            {/* Email Field */}
-            <div className="form-control transition-all duration-300 delay-150">
-              <label className="label">
-                <span className="label-text text-gray-700 font-medium">Email Address</span>
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-                className="input input-bordered focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                required
-              />
-            </div>
-
-            {/* Password Field */}
-            <div className="form-control transition-all duration-300 delay-200">
-              <label className="label">
-                <span className="label-text text-gray-700 font-medium">Password</span>
-              </label>
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="••••••••"
-                className="input input-bordered focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                required
-              />
-            </div>
-
-            {/* Confirm Password Field */}
-            <div className="form-control transition-all duration-300 delay-300">
-              <label className="label">
-                <span className="label-text text-gray-700 font-medium">Confirm Password</span>
-              </label>
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="••••••••"
-                className="input input-bordered focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                required
-              />
-            </div>
-
-            {/* Terms Checkbox */}
-            <div className="form-control transition-opacity duration-300 delay-400">
-              <label className="label cursor-pointer justify-start gap-3">
-                <input type="checkbox" className="checkbox checkbox-primary" required />
-                <span className="label-text text-gray-600">
-                  I agree to the <a href="#" className="link link-primary">Terms & Conditions</a>
-                </span>
-              </label>
-            </div>
-
-            {/* Submit Button */}
-            <div className="form-control mt-2 transition-all duration-300 delay-500">
-              <button
-                type="submit"
-                className="btn btn-primary hover:scale-[1.02] active:scale-[0.98] transform transition-transform duration-200 shadow-md hover:shadow-lg"
-              >
-                Create Account
-              </button>
-            </div>
-          </form>
-
-          {/* Login Link */}
-          <div className="text-center mt-6 transition-opacity duration-300 delay-700">
-            <p className="text-gray-600">
-              Already have an account?{' '}
-              <a href="#" className="link link-primary font-semibold">Sign in</a>
-            </p>
-          </div>
-
-          {/* Social Login */}
-          <div className="divider text-gray-500 text-sm my-4 transition-opacity duration-300 delay-800">
-            OR CONTINUE WITH
-          </div>
-
-          <div className="flex justify-center gap-4 transition-opacity duration-300 delay-900">
-            <button className="btn btn-outline btn-circle hover:bg-gray-100">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
-              </svg>
-            </button>
-            <button className="btn btn-outline btn-circle hover:bg-gray-100">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 .02c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.99 6.98l-6.99 5.666-6.991-5.666h13.981zm.01 10h-14v-8.505l7 5.673 7-5.672v8.504z"/>
-              </svg>
-            </button>
-            <button className="btn btn-outline btn-circle hover:bg-gray-100">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Container maxWidth="sm">
+      <AnimatedContainer
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Zoom in={true} timeout={500}>
+          <Typography variant="h4" component="h1" align="center" gutterBottom sx={{ mt: 4 }}>
+            Create an Account
+          </Typography>
+        </Zoom>
+        
+        <Slide direction="up" in={true} mountOnEnter unmountOnExit>
+          <AnimatedPaper
+            elevation={3}
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+              <Fade in={true} timeout={800}>
+                <Box sx={{ display: 'flex', gap: 2 }}>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    name="firstName"
+                    autoComplete="given-name"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    error={!!errors.firstName}
+                    helperText={errors.firstName}
+                    sx={{ mb: 2 }}
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    error={!!errors.lastName}
+                    helperText={errors.lastName}
+                    sx={{ mb: 2 }}
+                  />
+                </Box>
+              </Fade>
+              
+              <Fade in={true} timeout={1000}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  error={!!errors.email}
+                  helperText={errors.email}
+                  sx={{ mb: 2 }}
+                />
+              </Fade>
+              
+              <Fade in={true} timeout={1200}>
+                <FormControl fullWidth variant="outlined" margin="normal" error={!!errors.password}>
+                  <InputLabel htmlFor="password">Password *</InputLabel>
+                  <OutlinedInput
+                    id="password"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    value={formData.password}
+                    onChange={handleChange}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password *"
+                  />
+                  {errors.password && <FormHelperText>{errors.password}</FormHelperText>}
+                </FormControl>
+              </Fade>
+              
+              <Fade in={true} timeout={1400}>
+                <FormControl fullWidth variant="outlined" margin="normal" error={!!errors.confirmPassword}>
+                  <InputLabel htmlFor="confirmPassword">Confirm Password *</InputLabel>
+                  <OutlinedInput
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowConfirmPassword}
+                          edge="end"
+                        >
+                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Confirm Password *"
+                  />
+                  {errors.confirmPassword && <FormHelperText>{errors.confirmPassword}</FormHelperText>}
+                </FormControl>
+              </Fade>
+              
+              <Fade in={true} timeout={1600}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  size="large"
+                  sx={{ mt: 3, mb: 2, py: 1.5 }}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Creating Account...' : 'Sign Up'}
+                </Button>
+              </Fade>
+              
+              <Fade in={true} timeout={1800}>
+                <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+                  Already have an account? <a href="/login">Sign in</a>
+                </Typography>
+              </Fade>
+            </Box>
+          </AnimatedPaper>
+        </Slide>
+      </AnimatedContainer>
+    </Container>
   );
-}
+};
+
+export default RegistrationForm;
