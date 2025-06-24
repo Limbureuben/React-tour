@@ -100,12 +100,6 @@ const RegistrationForm = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Zoom in={true} timeout={500}>
-          <Typography variant="h4" component="h1" align="center" gutterBottom sx={{ mt: 4 }}>
-            Create an Account
-          </Typography>
-        </Zoom>
-        
         <Slide direction="up" in={true} mountOnEnter unmountOnExit>
           <AnimatedPaper
             elevation={3}
