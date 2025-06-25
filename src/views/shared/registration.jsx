@@ -225,7 +225,7 @@ const RegistrationForm = () => {
               
               <Fade in={true} timeout={1800}>
                 <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-                  Already have an account? <a href="/login">Sign in</a>
+                  Already have an account? <a href="/">Sign in</a>
                 </Typography>
               </Fade>
             </Box>
