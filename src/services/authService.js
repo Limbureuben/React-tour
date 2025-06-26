@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { registerUser } from '../api/UserApi'
+import { toast } from 'react-toastify';
 
 
 export default function useRegistrationForm() {
@@ -43,6 +44,8 @@ export default function useRegistrationForm() {
     try {
       const result = await registerUser(formData);
       console.log('Registered:', result);
+      toast.success('Registration sucecssfully!');
+      toast
       // Optionally redirect or show success message
     } catch (err) {
       console.error('Registration failed:', err);
