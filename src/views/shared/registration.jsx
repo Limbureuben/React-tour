@@ -114,28 +114,14 @@ const RegistrationForm = () => {
                     margin="normal"
                     required
                     fullWidth
-                    id="firstName"
-                    label="First Name"
-                    name="firstName"
+                    id="Username"
+                    label="Username"
+                    name="username"
                     autoComplete="given-name"
-                    value={formData.firstName}
+                    value={formData.username}
                     onChange={handleChange}
-                    error={!!errors.firstName}
-                    helperText={errors.firstName}
-                    sx={{ mb: 2 }}
-                  />
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    autoComplete="family-name"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    error={!!errors.lastName}
-                    helperText={errors.lastName}
+                    error={!!errors.username}
+                    helperText={errors.username}
                     sx={{ mb: 2 }}
                   />
                 </Box>
@@ -223,7 +209,7 @@ const RegistrationForm = () => {
                 </Button>
               </Fade>
               
-              <Fade in={true} timeout={1800}>
+              <Fade in={true} timeout={100}>
                 <Typography variant="body2" align="center" sx={{ mt: 2 }}>
                   Already have an account? <a href="/">Sign in</a>
                 </Typography>
