@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from '../api/UserApi'
 import { toast } from 'react-toastify';
 
-
 export default function useRegistrationForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -42,17 +43,30 @@ export default function useRegistrationForm() {
 
     setIsSubmitting(true);
     try {
-      const result = await registerUser(formData);
-      console.log('Registered:', result);
-      toast.success('Registration sucecssfully!');
-      toast
-      // Optionally redirect or show success message
-    } catch (err) {
-      console.error('Registration failed:', err);
-      setErrors({ form: 'Registration failed. Please try again.' });
-    } finally {
-      setIsSubmitting(false);
-    }
+  const result = await registerUser(formData);
+  
+  if (result.success) {
+    console.log('Registration successful:', result);
+    toast.success('Registration successful!');
+    // Redirect or perform post-registration actions
+    navigate('/dashboard'); // Example using react-router
+  } else {
+    console.error('Registration failed:', result.message);
+    setErrors(result.errors || { form: result.message });
+    toast.error(result.message || 'Registration failed');
+  }
+} catch (error) {
+  console.error('Registration error:', error);
+  
+  const errorMessage = error.response?.data?.message
+    || error.message
+    || 'Registration failed. Please try again.';
+    
+  setErrors({ form: errorMessage });
+  toast.error(errorMessage);
+} finally {
+  setIsSubmitting(false);
+}
   };
 
   const handleClickShowPassword = () => setShowPassword((prev) => !prev);

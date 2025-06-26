@@ -10,8 +10,8 @@ function App() {
   
   return (
     <Router>
+      <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
-        
         <Route path='/register' element={ <Registration />} />
         <Route path='/' element={ <Login />} />
         <Route path='/footer' element={<Footer />} />
