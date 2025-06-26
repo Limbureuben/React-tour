@@ -4,7 +4,7 @@ import { Box, Button, Container,  TextField,Typography,Paper,FormControl,
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { styled } from '@mui/system';
-import { useRegistrationForm } from '../../services/authService'
+import useRegistrationForm from '../../services/authService'
 
 // Styled components for animations
 const AnimatedContainer = styled(motion.div)({
