@@ -41,10 +41,11 @@ export default function LoginRegistrationForm() {
         const result = await loginUser(formData);
 
         if (result.success) {
-          console.log('Login successful:', result);
+           localStorage.setItem('authToken', result.token);
+           localStorage.setItem('user', JSON.stringify(result.user));
+
           toast.success('Login successful!');
-          // Redirect or perform post-login actions
-          navigate('/dashboard'); // Example using react-router
+          navigate('/dashboard');
         } else {
           console.error('Login failed:', result.message);
           setErrors(result.errors || { form: result.message });

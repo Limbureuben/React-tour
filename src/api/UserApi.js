@@ -11,11 +11,35 @@ export async function registerUser(data) {
 }
 
 
+// export async function loginUser(data) {
+//     const res = await fetch(`${BASE_URL}/api/auth/login`, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(data)
+//     });
+//     return res.json();
+// }
+
+
 export async function loginUser(data) {
-    const res = await fetch(`${BASE_URL}/api/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-    });
-    return res.json();
+  const res = await fetch(`${BASE_URL}/api/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  const json = await res.json();
+
+  if (!res.ok) {
+    return {
+      success: false,
+      message: json.message || 'Login failed'
+    };
+  }
+
+  return {
+    success: true,
+    user: json.user,
+    token: json.token
+  };
 }
