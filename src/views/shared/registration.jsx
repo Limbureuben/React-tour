@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { React }from 'react'
 import { Box, Button, Container,  TextField,Typography,Paper,FormControl,
   InputLabel,OutlinedInput,InputAdornment,IconButton,FormHelperText,Fade,Zoom,Slide } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { styled } from '@mui/system';
+import { useRegistrationForm } from '../../services/authService'
 
 // Styled components for animations
 const AnimatedContainer = styled(motion.div)({
@@ -15,83 +16,18 @@ const AnimatedPaper = styled(motion(Paper))({
   marginTop: '2rem'
 });
 
-const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
-  const [errors, setErrors] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error when user types
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
+export default function RegistrationForm() {
+  const { formData, errors, isSubmitting,
+    showPassword,
+    showConfirmPassword,
+    handleChange,
+    handleSubmit,
+    handleClickShowPassword,
+    handleClickShowConfirmPassword,
+  } = useRegistrationForm();
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
 
-  const handleClickShowConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
-
-  const validate = () => {
-    const newErrors = {};
-    
-    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
-    
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters';
-    }
-    
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (validate()) {
-      setIsSubmitting(true);
-      
-      // Simulate API call
-      setTimeout(() => {
-        console.log('Form submitted:', formData);
-        setIsSubmitting(false);
-        // Add your success handling here (redirect, notification, etc.)
-      }, 1500);
-    }
-  };
 
   return (
     <Container maxWidth="sm">
@@ -220,6 +156,5 @@ const RegistrationForm = () => {
       </AnimatedContainer>
     </Container>
   );
-};
 
-export default RegistrationForm;
+}
