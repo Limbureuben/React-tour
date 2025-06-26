@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 import { styled } from '@mui/system';
 import useRegistrationForm from '../../services/authService'
 
-// Styled components for animations
 const AnimatedContainer = styled(motion.div)({
   width: '100%'
 });
@@ -15,7 +14,6 @@ const AnimatedPaper = styled(motion(Paper))({
   padding: '2rem',
   marginTop: '2rem'
 });
-
 
 export default function RegistrationForm() {
   const { formData, errors, isSubmitting,
@@ -26,8 +24,6 @@ export default function RegistrationForm() {
     handleClickShowPassword,
     handleClickShowConfirmPassword,
   } = useRegistrationForm();
-
-
 
   return (
     <Container maxWidth="sm">

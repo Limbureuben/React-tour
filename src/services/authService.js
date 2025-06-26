@@ -42,31 +42,31 @@ export default function useRegistrationForm() {
     }
 
     setIsSubmitting(true);
-    try {
-  const result = await registerUser(formData);
-  
-  if (result.success) {
-    console.log('Registration successful:', result);
-    toast.success('Registration successful!');
-    // Redirect or perform post-registration actions
-    navigate('/dashboard'); // Example using react-router
-  } else {
-    console.error('Registration failed:', result.message);
-    setErrors(result.errors || { form: result.message });
-    toast.error(result.message || 'Registration failed');
-  }
-} catch (error) {
-  console.error('Registration error:', error);
-  
-  const errorMessage = error.response?.data?.message
-    || error.message
-    || 'Registration failed. Please try again.';
-    
-  setErrors({ form: errorMessage });
-  toast.error(errorMessage);
-} finally {
-  setIsSubmitting(false);
-}
+        try {
+      const result = await registerUser(formData);
+      
+      if (result.success) {
+        console.log('Registration successful:', result);
+        toast.success('Registration successful!');
+        // Redirect or perform post-registration actions
+        navigate('/dashboard'); // Example using react-router
+      } else {
+        console.error('Registration failed:', result.message);
+        setErrors(result.errors || { form: result.message });
+        toast.error(result.message || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      
+      const errorMessage = error.response?.data?.message
+        || error.message
+        || 'Registration failed. Please try again.';
+        
+      setErrors({ form: errorMessage });
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleClickShowPassword = () => setShowPassword((prev) => !prev);

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Button, Container,  TextField,Typography,Paper,FormControl,
   InputLabel,OutlinedInput,InputAdornment,IconButton,FormHelperText,Fade,Zoom,Slide } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { styled } from '@mui/system';
+import LoginRegistrationForm from '../../services/LoginService'
 
 // Styled components for animations
 const AnimatedContainer = styled(motion.div)({
@@ -15,72 +16,12 @@ const AnimatedPaper = styled(motion(Paper))({
   marginTop: '2rem'
 });
 
-const LoginForm = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-  });
-  const [errors, setErrors] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error when user types
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-
-  const validate = () => {
-    const newErrors = {};
-    
-    if (!formData.username.trim()) newErrors.username = 'First name is required';
-    
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (validate()) {
-      setIsSubmitting(true);
-      
-      // Simulate API call
-      setTimeout(() => {
-        console.log('Form submitted:', formData);
-        setIsSubmitting(false);
-        // Add your success handling here (redirect, notification, etc.)
-      }, 1500);
-    }
-  };
+export default function LoginForm() {
+  const {formData, errors, isSubmitting, showPassword, 
+    handleChange,
+    handleSubmit,
+    handleClickShowPassword,
+  } = LoginRegistrationForm();
 
   return (
     <Container maxWidth="sm" sx={{ mt: 12, mb: 2, px: 1 }}>
@@ -166,5 +107,3 @@ const LoginForm = () => {
     </Container>
   );
 };
-
-export default LoginForm;
