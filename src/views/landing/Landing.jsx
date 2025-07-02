@@ -1,26 +1,11 @@
 import React, { useState } from 'react';
 import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  Container, 
-  Grid, 
-  Card, 
-  CardMedia, 
-  CardContent, 
-  Box,
-  IconButton,
+  AppBar, Toolbar, Typography, Button, Container, Grid, Card, CardMedia, CardContent, Box,IconButton,
 } from '@mui/material';
-import {
-  FavoriteBorder,
-  Favorite,
-  Star,
-  LocalShipping,
-  LocationOn,
-  Category,
+import { FavoriteBorder,Favorite,Star,LocalShipping,LocationOn,Category,
 } from '@mui/icons-material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import RegistrationForm from '../shared/registration'
 
 const theme = createTheme({
   palette: {
@@ -132,7 +117,7 @@ function LandingPage() {
                 </Button>
                 <Dialog open={open} onClose={handleDialogClose}>
                     <DialogContent>
-                    <RegisterForm />
+                    <RegistrationForm />
                     </DialogContent>
                 </Dialog>
             </Toolbar>
