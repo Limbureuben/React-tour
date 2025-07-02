@@ -2,10 +2,9 @@ import React from 'react';
 import {
   Box, Button, TextField, Typography, FormControl,
   InputLabel, OutlinedInput, InputAdornment, IconButton,
-  FormHelperText, Fade, Slide
+  FormHelperText
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { motion } from 'framer-motion';
 import useRegistrationForm from '../../services/authService';
 
 export default function RegistrationForm({ onSwitch }) {
@@ -16,121 +15,107 @@ export default function RegistrationForm({ onSwitch }) {
     handleClickShowPassword, handleClickShowConfirmPassword
   } = useRegistrationForm();
 
-  // const [authOpen, setAuthOpen] = useState(false);
-
   return (
     <Box
-      component={motion.div}
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      component="form"
+      onSubmit={handleSubmit}
+      noValidate
       sx={{
         width: 390,
-        height: 'auto',
-        p: 2
+        p: 2,
+        mx: 'auto'
       }}
     >
-      <Slide direction="up" in={true} mountOnEnter unmountOnExit>
-        <Box component="form" onSubmit={handleSubmit} noValidate>
-          <Typography variant="h6" align="center" mb={2}>Register</Typography>
+      <Typography variant="h6" align="center" mb={2}>Register</Typography>
 
-          <Fade in timeout={300}>
-            <TextField
-              fullWidth
-              required
-              margin="dense"
-              label="Username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              error={!!errors.username}
-              helperText={errors.username}
-            />
-          </Fade>
+      <TextField
+        fullWidth
+        required
+        margin="dense"
+        label="Username"
+        name="username"
+        value={formData.username}
+        onChange={handleChange}
+        error={!!errors.username}
+        helperText={errors.username}
+      />
 
-          <Fade in timeout={400}>
-            <TextField
-              fullWidth
-              required
-              margin="dense"
-              label="Email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              error={!!errors.email}
-              helperText={errors.email}
-            />
-          </Fade>
+      <TextField
+        fullWidth
+        required
+        margin="dense"
+        label="Email"
+        name="email"
+        type="email"
+        value={formData.email}
+        onChange={handleChange}
+        error={!!errors.email}
+        helperText={errors.email}
+      />
 
-          <Fade in timeout={500}>
-            <FormControl fullWidth variant="outlined" margin="dense" error={!!errors.password}>
-              <InputLabel>Password *</InputLabel>
-              <OutlinedInput
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                value={formData.password}
-                onChange={handleChange}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton onClick={handleClickShowPassword} edge="end">
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password *"
-              />
-              {errors.password && <FormHelperText>{errors.password}</FormHelperText>}
-            </FormControl>
-          </Fade>
+      <FormControl fullWidth variant="outlined" margin="dense" error={!!errors.password}>
+        <InputLabel>Password *</InputLabel>
+        <OutlinedInput
+          name="password"
+          type={showPassword ? 'text' : 'password'}
+          value={formData.password}
+          onChange={handleChange}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton onClick={handleClickShowPassword} edge="end">
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          label="Password *"
+        />
+        {errors.password && <FormHelperText>{errors.password}</FormHelperText>}
+      </FormControl>
 
-          <Fade in timeout={600}>
-            <FormControl fullWidth variant="outlined" margin="dense" error={!!errors.confirmPassword}>
-              <InputLabel>Confirm Password *</InputLabel>
-              <OutlinedInput
-                name="confirmPassword"
-                type={showConfirmPassword ? 'text' : 'password'}
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton onClick={handleClickShowConfirmPassword} edge="end">
-                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Confirm Password *"
-              />
-              {errors.confirmPassword && <FormHelperText>{errors.confirmPassword}</FormHelperText>}
-            </FormControl>
-          </Fade>
+      <FormControl fullWidth variant="outlined" margin="dense" error={!!errors.confirmPassword}>
+        <InputLabel>Confirm Password *</InputLabel>
+        <OutlinedInput
+          name="confirmPassword"
+          type={showConfirmPassword ? 'text' : 'password'}
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton onClick={handleClickShowConfirmPassword} edge="end">
+                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+          label="Confirm Password *"
+        />
+        {errors.confirmPassword && <FormHelperText>{errors.confirmPassword}</FormHelperText>}
+      </FormControl>
 
-          <Fade in timeout={800}>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              size="medium"
-              sx={{
-                mt: 2,
-                mb: 2,
-                py: 1.5,
-                backgroundColor: '#06923E',
-                '&:hover': {
-                  backgroundColor: '#057a33',
-                },
-              }}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Creating Account...' : 'Sign Up'}
-            </Button>
-          </Fade>
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        size="medium"
+        sx={{
+          mt: 2,
+          mb: 2,
+          py: 1.5,
+          backgroundColor: '#06923E',
+          '&:hover': {
+            backgroundColor: '#057a33',
+          },
+        }}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? 'Creating Account...' : 'Sign Up'}
+      </Button>
 
-          <Typography variant="body2" align="center" mt={2}>
-            Already have an account? <span style={{ color: '#06923E', cursor: 'pointer' }} onClick={onSwitch}>Sign in</span>
-          </Typography>
-        </Box>
-      </Slide>
+      <Typography variant="body2" align="center" mt={2}>
+        Already have an account?{' '}
+        <span style={{ color: '#06923E', cursor: 'pointer' }} onClick={onSwitch}>
+          Sign in
+        </span>
+      </Typography>
     </Box>
   );
 }
