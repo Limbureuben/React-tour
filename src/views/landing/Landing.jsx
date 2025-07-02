@@ -13,12 +13,12 @@ import {
   IconButton,
 } from '@mui/material';
 import {
-  Search,
   FavoriteBorder,
   Favorite,
   Star,
+  LocalShipping,
   LocationOn,
-  Packages,
+  Category,
 } from '@mui/icons-material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -34,8 +34,8 @@ const theme = createTheme({
 });
 
 const propertyTypes = [
-    { icon: <Packages />, label: 'Packages' },
-    { icon: <Favorite />, label: 'Favorites' }
+    { icon: <LocalShipping />, label: 'Packages' },
+    { icon: <Category />, label: 'Favorites' }
 ];
 
 const properties = [
