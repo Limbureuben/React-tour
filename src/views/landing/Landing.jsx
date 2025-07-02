@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   AppBar, 
   Toolbar, 
@@ -87,6 +87,11 @@ const properties = [
 ];
 
 function LandingPage() {
+    const [open, setOpen] = useState(false);
+
+    const handleDialogOpen = () => setOpen(true);
+    const handleDialogClose = () => setOpen(false);
+
   const [likedProperties, setLikedProperties] = React.useState([]);
 
   const toggleLike = (propertyId) => {
@@ -98,6 +103,7 @@ function LandingPage() {
   };
 
   return (
+    <>
     <ThemeProvider theme={theme}>
       <div className="App">
         <AppBar position="static" color="inherit" elevation={0}>
@@ -111,8 +117,7 @@ function LandingPage() {
                 Booking
               </Typography>
               <Button 
-                variant="contained" 
-                sx={{ 
+                variant="contained" sx={{ 
                     borderRadius: 2, 
                     ml: 2, 
                     backgroundColor: '#06923E', 
@@ -121,9 +126,15 @@ function LandingPage() {
                     backgroundColor: '#057A34',
                     }
                 }}
+                onClick={handleDialogOpen}
                 >
                 Sign Up
                 </Button>
+                <Dialog open={open} onClose={handleDialogClose}>
+                    <DialogContent>
+                    <RegisterForm />
+                    </DialogContent>
+                </Dialog>
             </Toolbar>
           </Container>
         </AppBar>
@@ -152,10 +163,10 @@ function LandingPage() {
             {properties.map((property) => (
               <Grid item xs={12} sm={6} md={4} key={property.id}>
                 <Card elevation={0} sx={{ position: 'relative' }}>
-                  <IconButton 
-                    sx={{ 
-                      position: 'absolute', 
-                      top: 10, 
+                  <IconButton
+                    sx={{
+                      position: 'absolute',
+                      top: 10,
                       right: 10,
                       color: likedProperties.includes(property.id) ? '#06923E' : 'white'
                     }}
@@ -194,6 +205,7 @@ function LandingPage() {
         </Container>
       </div>
     </ThemeProvider>
+    </>
   );
 }
 
