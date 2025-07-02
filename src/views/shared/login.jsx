@@ -94,7 +94,7 @@ export default function LoginForm({ onSwitch }) {
               variant="contained"
               size="large"
               sx={{
-                mt: 3,
+                mt: 2,
                 mb: 2,
                 py: 1.5,
                 backgroundColor: '#06923E',

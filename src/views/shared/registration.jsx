@@ -111,7 +111,15 @@ export default function RegistrationForm({ onSwitch }) {
               fullWidth
               variant="contained"
               size="medium"
-              sx={{ mt: 2 }}
+              sx={{
+                mt: 2,
+                mb: 2,
+                py: 1.5,
+                backgroundColor: '#06923E',
+                '&:hover': {
+                  backgroundColor: '#057a33',
+                },
+              }}
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Creating Account...' : 'Sign Up'}

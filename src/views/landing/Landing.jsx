@@ -114,7 +114,7 @@ function LandingPage() {
                 }}
                 onClick={() => setAuthOpen(true)}
                 >
-                Sign Up
+                Login
                 </Button>
                 <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
             </Toolbar>
