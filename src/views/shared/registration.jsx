@@ -23,7 +23,8 @@ export default function RegistrationForm() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       sx={{
-        width: 300, // make it compact
+        width: 400,
+        height: 'auto',
         p: 2
       }}
     >
