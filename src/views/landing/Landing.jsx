@@ -9,15 +9,8 @@ import {
   Card, 
   CardMedia, 
   CardContent, 
-  CardActions, 
-  Chip,
   Box,
-  TextField,
-  InputAdornment,
   IconButton,
-  Divider,
-  Link,
-  Stack
 } from '@mui/material';
 import {
   Search,
@@ -25,12 +18,7 @@ import {
   Favorite,
   Star,
   LocationOn,
-  Home,
-  Apartment,
-  Villa,
-  Cabin,
-  BeachAccess,
-  Castle
+  Packages,
 } from '@mui/icons-material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -46,8 +34,8 @@ const theme = createTheme({
 });
 
 const propertyTypes = [
-  { icon: <Home />, label: 'Houses' },
-  { icon: <Apartment />, label: 'Apartments' },
+    { icon: <Packages />, label: 'Packages' },
+    { icon: <Favorite />, label: 'Favorites' }
 ];
 
 const properties = [
@@ -118,12 +106,12 @@ function LandingPage() {
               <Typography variant="h6" component="div" sx={{ 
                 flexGrow: 1,
                 fontWeight: 'bold',
-                color: 'primary.main'
+                color: '#06923E'
               }}>
                 Booking
               </Typography>
               <Button variant="text" sx={{ fontWeight: 'bold' }}>Become a Host</Button>
-              <Button variant="contained" color="primary" sx={{ borderRadius: 20, ml: 2 }}>Sign Up</Button>
+              <Button variant="contained" color="#06923E" sx={{ borderRadius: 2, ml: 2 }}>Sign Up</Button>
             </Toolbar>
           </Container>
         </AppBar>
@@ -136,7 +124,7 @@ function LandingPage() {
                   <IconButton sx={{ 
                     border: '1px solid #ddd',
                     p: 2,
-                    color: index === 0 ? 'primary.main' : 'inherit'
+                    color: index === 0 ? '#06923E' : 'inherit'
                   }}>
                     {type.icon}
                   </IconButton>
@@ -157,7 +145,7 @@ function LandingPage() {
                       position: 'absolute', 
                       top: 10, 
                       right: 10,
-                      color: likedProperties.includes(property.id) ? 'primary.main' : 'white'
+                      color: likedProperties.includes(property.id) ? '#06923E' : 'white'
                     }}
                     onClick={() => toggleLike(property.id)}
                   >
@@ -177,7 +165,7 @@ function LandingPage() {
                         <Typography component="span" variant="body2" color="text.secondary"> night</Typography>
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Star sx={{ color: 'primary.main', fontSize: '1rem' }} />
+                        <Star sx={{ color: '#06923E', fontSize: '1rem' }} />
                         <Typography variant="body2">{property.rating}</Typography>
                       </Box>
                     </Box>
