@@ -16,12 +16,13 @@ const AnimatedPaper = styled(motion(Paper))({
   marginTop: '2rem'
 });
 
-export default function LoginForm() {
-  const {formData, errors, isSubmitting, showPassword, 
+export default function LoginForm({ onSwitch }) {
+  const {formData, errors, isSubmitting, showPassword,
     handleChange,
     handleSubmit,
     handleClickShowPassword,
   } = LoginRegistrationForm();
+
 
   return (
     <Container maxWidth="sm" sx={{ mt: 12, mb: 2, px: 1 }}>
@@ -96,9 +97,9 @@ export default function LoginForm() {
               </Fade>
               
               <Fade in={true} timeout={1800}>
-                <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-                  Do'nt have an account <a href="/register">Sign out</a>
-                </Typography>
+               <Typography variant="body2" align="center" mt={2}>
+                Don’t have an account? <span style={{ color: '#06923E', cursor: 'pointer' }} onClick={onSwitch}>Register</span>
+              </Typography>
               </Fade>
             </Box>
           </AnimatedPaper>

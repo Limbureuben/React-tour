@@ -6,6 +6,7 @@ import { FavoriteBorder,Favorite,Star,LocalShipping,LocationOn,Category,
 } from '@mui/icons-material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RegistrationForm from '../shared/registration'
+import AuthModal from '../shared/AuthMode'
 
 const theme = createTheme({
   palette: {
@@ -72,10 +73,10 @@ const properties = [
 ];
 
 function LandingPage() {
-    const [open, setOpen] = useState(false);
+    const [authOpen, setAuthOpen] = useState(false);
 
-    const handleDialogOpen = () => setOpen(true);
-    const handleDialogClose = () => setOpen(false);
+    // const handleDialogOpen = () => setOpen(true);
+    // const handleDialogClose = () => setOpen(false);
 
   const [likedProperties, setLikedProperties] = React.useState([]);
 
@@ -111,22 +112,11 @@ function LandingPage() {
                     backgroundColor: '#057A34',
                     }
                 }}
-                onClick={handleDialogOpen}
+                onClick={() => setAuthOpen(true)}
                 >
                 Sign Up
                 </Button>
-                <Dialog open={open} onClose={handleDialogClose} maxWidth="xs" fullWidth
-                PaperProps={{
-                    sx: {
-                    boxShadow: 0, // remove elevation
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                    }
-                }}
-                >
-                <RegistrationForm />
-                </Dialog>
+                <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
             </Toolbar>
           </Container>
         </AppBar>

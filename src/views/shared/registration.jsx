@@ -8,13 +8,15 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import useRegistrationForm from '../../services/authService';
 
-export default function RegistrationForm() {
+export default function RegistrationForm({ onSwitch }) {
   const {
     formData, errors, isSubmitting,
     showPassword, showConfirmPassword,
     handleChange, handleSubmit,
     handleClickShowPassword, handleClickShowConfirmPassword
   } = useRegistrationForm();
+
+  // const [authOpen, setAuthOpen] = useState(false);
 
   return (
     <Box
@@ -23,7 +25,7 @@ export default function RegistrationForm() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
       sx={{
-        width: 400,
+        width: 390,
         height: 'auto',
         p: 2
       }}
@@ -117,7 +119,7 @@ export default function RegistrationForm() {
           </Fade>
 
           <Typography variant="body2" align="center" mt={2}>
-            Already have an account? <a href="/">Sign in</a>
+            Already have an account? <span style={{ color: '#06923E', cursor: 'pointer' }} onClick={onSwitch}>Sign in</span>
           </Typography>
         </Box>
       </Slide>
