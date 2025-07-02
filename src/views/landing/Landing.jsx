@@ -118,7 +118,6 @@ function LandingPage() {
                 <Dialog open={open} onClose={handleDialogClose} maxWidth="xs" fullWidth
                 PaperProps={{
                     sx: {
-                    background: 'transparent', // remove white background
                     boxShadow: 0, // remove elevation
                     display: 'flex',
                     justifyContent: 'center',
