@@ -1,0 +1,303 @@
+import React from 'react';
+import { 
+  AppBar, 
+  Toolbar, 
+  Typography, 
+  Button, 
+  Container, 
+  Grid, 
+  Card, 
+  CardMedia, 
+  CardContent, 
+  CardActions, 
+  Chip,
+  Box,
+  TextField,
+  InputAdornment,
+  IconButton,
+  Divider,
+  Link,
+  Stack
+} from '@mui/material';
+import {
+  Search,
+  FavoriteBorder,
+  Favorite,
+  Star,
+  LocationOn,
+  Home,
+  Apartment,
+  Villa,
+  Cabin,
+  BeachAccess,
+  Castle
+} from '@mui/icons-material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#ff385c',
+    },
+    secondary: {
+      main: '#000000',
+    },
+  },
+});
+
+const propertyTypes = [
+  { icon: <Home />, label: 'Houses' },
+  { icon: <Apartment />, label: 'Apartments' },
+  { icon: <Villa />, label: 'Villas' },
+  { icon: <Cabin />, label: 'Cabins' },
+  { icon: <BeachAccess />, label: 'Beach' },
+  { icon: <Castle />, label: 'Castles' },
+];
+
+const properties = [
+  {
+    id: 1,
+    title: 'Modern Loft in Downtown',
+    location: 'New York, NY',
+    price: 120,
+    rating: 4.92,
+    image: 'https://source.unsplash.com/random/300x200/?apartment',
+    type: 'Apartment'
+  },
+  {
+    id: 2,
+    title: 'Beachfront Villa with Pool',
+    location: 'Miami, FL',
+    price: 350,
+    rating: 4.85,
+    image: 'https://source.unsplash.com/random/300x200/?villa',
+    type: 'Villa'
+  },
+  {
+    id: 3,
+    title: 'Cozy Mountain Cabin',
+    location: 'Aspen, CO',
+    price: 180,
+    rating: 4.79,
+    image: 'https://source.unsplash.com/random/300x200/?cabin',
+    type: 'Cabin'
+  },
+  {
+    id: 4,
+    title: 'Stylish City Apartment',
+    location: 'Chicago, IL',
+    price: 95,
+    rating: 4.88,
+    image: 'https://source.unsplash.com/random/300x200/?studio',
+    type: 'Apartment'
+  },
+  {
+    id: 5,
+    title: 'Luxury Penthouse with View',
+    location: 'Los Angeles, CA',
+    price: 400,
+    rating: 4.95,
+    image: 'https://source.unsplash.com/random/300x200/?penthouse',
+    type: 'Apartment'
+  },
+  {
+    id: 6,
+    title: 'Charming Countryside House',
+    location: 'Nashville, TN',
+    price: 150,
+    rating: 4.82,
+    image: 'https://source.unsplash.com/random/300x200/?countryside',
+    type: 'House'
+  },
+];
+
+function LandingPage() {
+  const [likedProperties, setLikedProperties] = React.useState([]);
+
+  const toggleLike = (propertyId) => {
+    if (likedProperties.includes(propertyId)) {
+      setLikedProperties(likedProperties.filter(id => id !== propertyId));
+    } else {
+      setLikedProperties([...likedProperties, propertyId]);
+    }
+  };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <AppBar position="static" color="inherit" elevation={0}>
+          <Container maxWidth="lg">
+            <Toolbar disableGutters>
+              <Typography variant="h6" component="div" sx={{ 
+                flexGrow: 1,
+                fontWeight: 'bold',
+                color: 'primary.main'
+              }}>
+                airbnb
+              </Typography>
+              
+              <Box sx={{ 
+                display: 'flex', 
+                alignItems: 'center',
+                border: '1px solid #ddd',
+                borderRadius: 40,
+                p: '5px 10px',
+                boxShadow: 1,
+                mr: 2
+              }}>
+                <Button sx={{ fontWeight: 'bold' }}>Anywhere</Button>
+                <Divider orientation="vertical" flexItem />
+                <Button sx={{ fontWeight: 'bold' }}>Any week</Button>
+                <Divider orientation="vertical" flexItem />
+                <Button color="inherit">Add guests</Button>
+                <IconButton color="primary">
+                  <Search />
+                </IconButton>
+              </Box>
+              
+              <Button variant="text" sx={{ fontWeight: 'bold' }}>Become a Host</Button>
+              <Button variant="contained" color="primary" sx={{ borderRadius: 20, ml: 2 }}>Sign Up</Button>
+            </Toolbar>
+          </Container>
+        </AppBar>
+
+        <Box sx={{ borderBottom: '1px solid #eee', py: 2 }}>
+          <Container maxWidth="lg">
+            <Grid container spacing={2} sx={{ overflowX: 'auto', flexWrap: 'nowrap', py: 1 }}>
+              {propertyTypes.map((type, index) => (
+                <Grid item key={index} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <IconButton sx={{ 
+                    border: '1px solid #ddd',
+                    p: 2,
+                    color: index === 0 ? 'primary.main' : 'inherit'
+                  }}>
+                    {type.icon}
+                  </IconButton>
+                  <Typography variant="caption" sx={{ mt: 1 }}>{type.label}</Typography>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </Box>
+
+        <Container maxWidth="lg" sx={{ py: 4 }}>
+          <Grid container spacing={4}>
+            {properties.map((property) => (
+              <Grid item xs={12} sm={6} md={4} key={property.id}>
+                <Card elevation={0} sx={{ position: 'relative' }}>
+                  <IconButton 
+                    sx={{ 
+                      position: 'absolute', 
+                      top: 10, 
+                      right: 10,
+                      color: likedProperties.includes(property.id) ? 'primary.main' : 'white'
+                    }}
+                    onClick={() => toggleLike(property.id)}
+                  >
+                    {likedProperties.includes(property.id) ? <Favorite /> : <FavoriteBorder />}
+                  </IconButton>
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    image={property.image}
+                    alt={property.title}
+                    sx={{ borderRadius: 2 }}
+                  />
+                  <CardContent sx={{ p: 0, pt: 1 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
+                        ${property.price}
+                        <Typography component="span" variant="body2" color="text.secondary"> night</Typography>
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Star sx={{ color: 'primary.main', fontSize: '1rem' }} />
+                        <Typography variant="body2">{property.rating}</Typography>
+                      </Box>
+                    </Box>
+                    <Typography variant="body1" sx={{ mt: 0.5 }}>{property.title}</Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center' }}>
+                      <LocationOn sx={{ fontSize: '1rem', mr: 0.5 }} />
+                      {property.location}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+
+        <Box sx={{ bgcolor: '#f7f7f7', py: 6, mt: 4 }}>
+          <Container maxWidth="lg">
+            <Grid container spacing={4}>
+              <Grid item xs={12} md={6}>
+                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>Become a Host</Typography>
+                <Typography variant="body1" sx={{ mb: 3 }}>
+                  Earn extra income and unlock new opportunities by sharing your space.
+                </Typography>
+                <Button variant="outlined" sx={{ borderRadius: 20, fontWeight: 'bold' }}>Learn More</Button>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>Save your favorites</Typography>
+                <Typography variant="body1" sx={{ mb: 3 }}>
+                  Sign up to save and access your favorite properties from any device.
+                </Typography>
+                <Button variant="contained" color="primary" sx={{ borderRadius: 20, fontWeight: 'bold' }}>Sign Up</Button>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+
+        <Box sx={{ py: 4, borderTop: '1px solid #eee' }}>
+          <Container maxWidth="lg">
+            <Grid container spacing={4}>
+              <Grid item xs={6} md={3}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>Support</Typography>
+                <Stack spacing={1}>
+                  <Link href="#" color="inherit" underline="hover">Help Center</Link>
+                  <Link href="#" color="inherit" underline="hover">Safety information</Link>
+                  <Link href="#" color="inherit" underline="hover">Cancellation options</Link>
+                </Stack>
+              </Grid>
+              <Grid item xs={6} md={3}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>Community</Typography>
+                <Stack spacing={1}>
+                  <Link href="#" color="inherit" underline="hover">Disaster relief</Link>
+                  <Link href="#" color="inherit" underline="hover">Support refugees</Link>
+                  <Link href="#" color="inherit" underline="hover">Combating discrimination</Link>
+                </Stack>
+              </Grid>
+              <Grid item xs={6} md={3}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>Hosting</Typography>
+                <Stack spacing={1}>
+                  <Link href="#" color="inherit" underline="hover">Try hosting</Link>
+                  <Link href="#" color="inherit" underline="hover">AirCover for Hosts</Link>
+                  <Link href="#" color="inherit" underline="hover">Explore hosting resources</Link>
+                </Stack>
+              </Grid>
+              <Grid item xs={6} md={3}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>Airbnb</Typography>
+                <Stack spacing={1}>
+                  <Link href="#" color="inherit" underline="hover">Newsroom</Link>
+                  <Link href="#" color="inherit" underline="hover">Investors</Link>
+                  <Link href="#" color="inherit" underline="hover">Gift cards</Link>
+                </Stack>
+              </Grid>
+            </Grid>
+            <Divider sx={{ my: 4 }} />
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <Typography variant="body2">
+                © 2023 Airbnb, Inc. · Privacy · Terms · Sitemap
+              </Typography>
+              <Box>
+                <Button size="small" sx={{ fontWeight: 'bold' }}>English (US)</Button>
+                <Button size="small" sx={{ fontWeight: 'bold' }}>$ USD</Button>
+              </Box>
+            </Box>
+          </Container>
+        </Box>
+      </div>
+    </ThemeProvider>
+  );
+}
+
+export default LandingPage;
