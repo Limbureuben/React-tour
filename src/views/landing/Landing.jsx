@@ -48,10 +48,6 @@ const theme = createTheme({
 const propertyTypes = [
   { icon: <Home />, label: 'Houses' },
   { icon: <Apartment />, label: 'Apartments' },
-  { icon: <Villa />, label: 'Villas' },
-  { icon: <Cabin />, label: 'Cabins' },
-  { icon: <BeachAccess />, label: 'Beach' },
-  { icon: <Castle />, label: 'Castles' },
 ];
 
 const properties = [
@@ -124,28 +120,8 @@ function LandingPage() {
                 fontWeight: 'bold',
                 color: 'primary.main'
               }}>
-                airbnb
+                Booking
               </Typography>
-              
-              <Box sx={{ 
-                display: 'flex', 
-                alignItems: 'center',
-                border: '1px solid #ddd',
-                borderRadius: 40,
-                p: '5px 10px',
-                boxShadow: 1,
-                mr: 2
-              }}>
-                <Button sx={{ fontWeight: 'bold' }}>Anywhere</Button>
-                <Divider orientation="vertical" flexItem />
-                <Button sx={{ fontWeight: 'bold' }}>Any week</Button>
-                <Divider orientation="vertical" flexItem />
-                <Button color="inherit">Add guests</Button>
-                <IconButton color="primary">
-                  <Search />
-                </IconButton>
-              </Box>
-              
               <Button variant="text" sx={{ fontWeight: 'bold' }}>Become a Host</Button>
               <Button variant="contained" color="primary" sx={{ borderRadius: 20, ml: 2 }}>Sign Up</Button>
             </Toolbar>
@@ -216,76 +192,6 @@ function LandingPage() {
             ))}
           </Grid>
         </Container>
-
-        <Box sx={{ bgcolor: '#f7f7f7', py: 6, mt: 4 }}>
-          <Container maxWidth="lg">
-            <Grid container spacing={4}>
-              <Grid item xs={12} md={6}>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>Become a Host</Typography>
-                <Typography variant="body1" sx={{ mb: 3 }}>
-                  Earn extra income and unlock new opportunities by sharing your space.
-                </Typography>
-                <Button variant="outlined" sx={{ borderRadius: 20, fontWeight: 'bold' }}>Learn More</Button>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>Save your favorites</Typography>
-                <Typography variant="body1" sx={{ mb: 3 }}>
-                  Sign up to save and access your favorite properties from any device.
-                </Typography>
-                <Button variant="contained" color="primary" sx={{ borderRadius: 20, fontWeight: 'bold' }}>Sign Up</Button>
-              </Grid>
-            </Grid>
-          </Container>
-        </Box>
-
-        <Box sx={{ py: 4, borderTop: '1px solid #eee' }}>
-          <Container maxWidth="lg">
-            <Grid container spacing={4}>
-              <Grid item xs={6} md={3}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>Support</Typography>
-                <Stack spacing={1}>
-                  <Link href="#" color="inherit" underline="hover">Help Center</Link>
-                  <Link href="#" color="inherit" underline="hover">Safety information</Link>
-                  <Link href="#" color="inherit" underline="hover">Cancellation options</Link>
-                </Stack>
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>Community</Typography>
-                <Stack spacing={1}>
-                  <Link href="#" color="inherit" underline="hover">Disaster relief</Link>
-                  <Link href="#" color="inherit" underline="hover">Support refugees</Link>
-                  <Link href="#" color="inherit" underline="hover">Combating discrimination</Link>
-                </Stack>
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>Hosting</Typography>
-                <Stack spacing={1}>
-                  <Link href="#" color="inherit" underline="hover">Try hosting</Link>
-                  <Link href="#" color="inherit" underline="hover">AirCover for Hosts</Link>
-                  <Link href="#" color="inherit" underline="hover">Explore hosting resources</Link>
-                </Stack>
-              </Grid>
-              <Grid item xs={6} md={3}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>Airbnb</Typography>
-                <Stack spacing={1}>
-                  <Link href="#" color="inherit" underline="hover">Newsroom</Link>
-                  <Link href="#" color="inherit" underline="hover">Investors</Link>
-                  <Link href="#" color="inherit" underline="hover">Gift cards</Link>
-                </Stack>
-              </Grid>
-            </Grid>
-            <Divider sx={{ my: 4 }} />
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography variant="body2">
-                © 2023 Airbnb, Inc. · Privacy · Terms · Sitemap
-              </Typography>
-              <Box>
-                <Button size="small" sx={{ fontWeight: 'bold' }}>English (US)</Button>
-                <Button size="small" sx={{ fontWeight: 'bold' }}>$ USD</Button>
-              </Box>
-            </Box>
-          </Container>
-        </Box>
       </div>
     </ThemeProvider>
   );
