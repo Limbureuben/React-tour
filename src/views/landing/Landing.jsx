@@ -100,7 +100,7 @@ function LandingPage() {
                 fontWeight: 'bold',
                 color: '#06923E'
               }}>
-                Booking
+                Available Packages
               </Typography>
               <Button 
                 variant="contained" sx={{ 
