@@ -25,6 +25,7 @@ export default function LoginForm({ onSwitch }) {
           mx: 'auto',
         }}
       >
+        <Typography variant="h6" align="center" mb={2}>LOGIN</Typography>
         <TextField
           margin="dense"
           required

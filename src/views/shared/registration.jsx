@@ -24,7 +24,7 @@ export default function RegistrationForm({ onSwitch }) {
       }}
     >
       <Box component="form" onSubmit={handleSubmit} noValidate>
-        <Typography variant="h6" align="center" mb={2}>Register</Typography>
+        <Typography variant="h6" align="center" mb={2}>REGISTRATION</Typography>
 
         <TextField
           fullWidth
