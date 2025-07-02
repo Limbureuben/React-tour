@@ -35,7 +35,7 @@ const theme = createTheme({
 
 const propertyTypes = [
     { icon: <LocalShipping />, label: 'Packages' },
-    { icon: <Category />, label: 'Favorites' }
+    { icon: <Category />, label: 'Category' }
 ];
 
 const properties = [
@@ -110,8 +110,20 @@ function LandingPage() {
               }}>
                 Booking
               </Typography>
-              <Button variant="text" sx={{ fontWeight: 'bold' }}>Become a Host</Button>
-              <Button variant="contained" color="#06923E" sx={{ borderRadius: 2, ml: 2 }}>Sign Up</Button>
+              <Button 
+                variant="contained" 
+                sx={{ 
+                    borderRadius: 2, 
+                    ml: 2, 
+                    backgroundColor: '#06923E', 
+                    color: '#fff',
+                    '&:hover': {
+                    backgroundColor: '#057A34',
+                    }
+                }}
+                >
+                Sign Up
+                </Button>
             </Toolbar>
           </Container>
         </AppBar>
