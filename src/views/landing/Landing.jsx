@@ -104,8 +104,8 @@ function LandingPage() {
               </Typography>
               <Button 
                 variant="contained" sx={{ 
-                    borderRadius: 2, 
-                    ml: 2, 
+                    borderRadius: 0, 
+                    ml: 4, 
                     backgroundColor: '#06923E', 
                     color: '#fff',
                     '&:hover': {
@@ -114,7 +114,7 @@ function LandingPage() {
                 }}
                 onClick={() => setAuthOpen(true)}
                 >
-                Login
+                Sign Up
                 </Button>
                 <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
             </Toolbar>
