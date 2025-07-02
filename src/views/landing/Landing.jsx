@@ -61,7 +61,7 @@ const properties = [
     location: 'New York, NY',
     price: 120,
     rating: 4.92,
-    image: 'https://source.unsplash.com/random/300x200/?apartment',
+    image: '/assets/images/bed1.jpeg',
     type: 'Apartment'
   },
   {
@@ -70,7 +70,7 @@ const properties = [
     location: 'Miami, FL',
     price: 350,
     rating: 4.85,
-    image: 'https://source.unsplash.com/random/300x200/?villa',
+    image: '/assets/images/bed2.jpeg',
     type: 'Villa'
   },
   {
@@ -79,7 +79,7 @@ const properties = [
     location: 'Aspen, CO',
     price: 180,
     rating: 4.79,
-    image: 'https://source.unsplash.com/random/300x200/?cabin',
+    image: '/assets/images/bed3.jpeg',
     type: 'Cabin'
   },
   {
@@ -88,7 +88,7 @@ const properties = [
     location: 'Chicago, IL',
     price: 95,
     rating: 4.88,
-    image: 'https://source.unsplash.com/random/300x200/?studio',
+    image: '/assets/images/bed4.jpeg',
     type: 'Apartment'
   },
   {
@@ -97,17 +97,8 @@ const properties = [
     location: 'Los Angeles, CA',
     price: 400,
     rating: 4.95,
-    image: 'https://source.unsplash.com/random/300x200/?penthouse',
+    image: '/assets/images/bed5.jpeg',
     type: 'Apartment'
-  },
-  {
-    id: 6,
-    title: 'Charming Countryside House',
-    location: 'Nashville, TN',
-    price: 150,
-    rating: 4.82,
-    image: 'https://source.unsplash.com/random/300x200/?countryside',
-    type: 'House'
   },
 ];
 
