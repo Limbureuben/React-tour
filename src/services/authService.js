@@ -47,22 +47,11 @@ export default function useRegistrationForm() {
 
       if (result.success) {
           toast.success('Registration successful!');
-          navigate('/dashboard');
+          navigate('/');
         } else {
           toast.error(result.message || 'Registration failed');
         }
 
-      
-      // if (result.success) {
-      //   console.log('Registration successful:', result);
-      //   toast.success('Registration successful!');
-      //   // Redirect or perform post-registration actions
-      //   navigate('/dashboard'); // Example using react-router
-      // } else {
-      //   console.error('Registration failed:', result.message);
-      //   setErrors(result.errors || { form: result.message });
-      //   toast.error(result.message || 'Registration failed');
-      // }
     } catch (error) {
       console.error('Registration error:', error);
       

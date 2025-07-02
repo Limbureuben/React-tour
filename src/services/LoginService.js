@@ -45,7 +45,7 @@ export default function LoginRegistrationForm() {
            localStorage.setItem('user', JSON.stringify(result.user));
 
           toast.success('Login successful!');
-          navigate('/dashboard');
+          navigate('/');
         } else {
           console.error('Login failed:', result.message);
           setErrors(result.errors || { form: result.message });
