@@ -1,5 +1,23 @@
-import React from 'react';
-import { Box, Card, CardContent, Typography, Button, Grid, Drawer, List, ListItem, ListItemText, AppBar, Toolbar } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Grid,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Divider,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
 const drawerWidth = 240;
 
@@ -8,6 +26,19 @@ function AdminDashboard() {
    * AdminDashboard component serves as the main admin panel
    * where the admin can access and perform different functionalities.
    */
+
+  const [open, setOpen] = useState(true);
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  const menuItems = [
+    { text: 'Dashboard', onClick: () => alert('Navigate to Dashboard') },
+    { text: 'User Management', onClick: () => alert('Navigate to User Management') },
+    { text: 'Content Management', onClick: () => alert('Navigate to Content Management') },
+    { text: 'Settings', onClick: () => alert('Navigate to Settings') },
+  ];
 
   const handleUserManagement = () => {
     alert('Navigate to User Management');
@@ -26,22 +57,68 @@ function AdminDashboard() {
       {/* Sidebar */}
       <Drawer
         variant="permanent"
+        open={open}
         sx={{
-          width: drawerWidth,
+          width: open ? drawerWidth : 56,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          whiteSpace: 'nowrap',
+          boxSizing: 'border-box',
+          transition: (theme) =>
+            theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
+          '& .MuiDrawer-paper': {
+            width: open ? drawerWidth : 56,
+            transition: (theme) =>
+              theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
+            overflowX: 'hidden',
+          },
         }}
       >
-        <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
-          <List>
-            {['Dashboard', 'User Management', 'Content Management', 'Settings'].map((text) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: open ? 'flex-end' : 'center',
+            px: [1],
+          }}
+        >
+          <IconButton onClick={toggleDrawer} color="inherit" size="large">
+            {open ? <ChevronLeftIcon /> : <MenuIcon />}
+          </IconButton>
+        </Toolbar>
+        <Divider />
+        <List>
+          {menuItems.map(({ text, onClick }) => (
+            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                onClick={onClick}
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                  borderRadius: 2,
+                  mb: 1,
+                  color: '#1976d2',
+                  '&:hover': {
+                    backgroundColor: '#e3f2fd',
+                    color: '#0d47a1',
+                    boxShadow: '0 2px 8px rgba(25, 118, 210, 0.3)',
+                  },
+                }}
+              >
+                <ListItemText
+                  primary={text}
+                  sx={{ opacity: open ? 1 : 0, fontWeight: 'medium' }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
 
       {/* Main content */}
@@ -49,6 +126,18 @@ function AdminDashboard() {
         {/* Header */}
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
           <Toolbar>
+            {!open && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                edge="start"
+                sx={{ mr: 2 }}
+                size="large"
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
             <Typography variant="h6" noWrap component="div">
               Admin Dashboard
             </Typography>
