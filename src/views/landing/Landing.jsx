@@ -74,10 +74,6 @@ const properties = [
 
 function LandingPage() {
     const [authOpen, setAuthOpen] = useState(false);
-
-    // const handleDialogOpen = () => setOpen(true);
-    // const handleDialogClose = () => setOpen(false);
-
   const [likedProperties, setLikedProperties] = React.useState([]);
 
   const toggleLike = (propertyId) => {
@@ -100,7 +96,7 @@ function LandingPage() {
                 fontWeight: 'bold',
                 color: '#06923E'
               }}>
-                Available Packages
+                Available Products
               </Typography>
               <Button 
                 variant="contained" sx={{ 

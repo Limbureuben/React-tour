@@ -6,6 +6,7 @@ import Footer from './views/layout/footer'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LandingPage from './views/landing/Landing'
+import AdminDashboard from './views/admin/AdminDashboard'
 
 function App() {
   
@@ -17,6 +18,7 @@ function App() {
         <Route path='/login' element={ <Login />} />
         <Route path='/footer' element={<Footer />} />
         <Route path='/' element={<LandingPage />} />
+        <Route path='/admin-dashboard' element={<AdminDashboard />} />
       </Routes>
     </Router>
   )
