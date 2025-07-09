@@ -19,6 +19,7 @@ function App() {
         <Route path='/footer' element={<Footer />} />
         <Route path='/' element={<LandingPage />} />
         <Route path='/admin-dashboard' element={<AdminDashboard />} />
+        <Route path='/user-dashboard' element={<userDashboard />} />
       </Routes>
     </Router>
   )

@@ -45,7 +45,16 @@ export default function LoginRegistrationForm() {
            localStorage.setItem('user', JSON.stringify(result.user));
 
           toast.success('Login successful!');
-          navigate('/');
+
+          const role = result.user.role;
+
+          if(role === 'staff') {
+            navigate('/admin-dashboard');
+          } else if (role === 'user') {
+            navigate('/user-dashboard');
+          } else {
+            navigate('/');
+          }
         } else {
           console.error('Login failed:', result.message);
           setErrors(result.errors || { form: result.message });
