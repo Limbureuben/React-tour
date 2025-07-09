@@ -1,16 +1,23 @@
+// src/pages/AdminDashboard.jsx
 import React from 'react';
-import Home from './Home'
-import AdminHeader from './AdminHeader'
-import AdminSidebar from './AdminSidebar'
-import '../../css/AdminDashboard.css'
+import { Box, CssBaseline } from '@mui/material';
+import Header from './AdminHeader';
+import Sidebar from './AdminSidebar';
+import Home from './Home';
+import { Toolbar } from '@mui/material';
 
-function AdminDashboard() {
-  <div className='grid-container'>
-    <AdminHeader />
-    <AdminSidebar />
-    <Home />
-  </div>
-
-}
+const AdminDashboard = () => {
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <Header />
+      <Sidebar />
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Toolbar /> {/* This creates space below the AppBar */}
+        <Home />
+      </Box>
+    </Box>
+  );
+};
 
 export default AdminDashboard;
