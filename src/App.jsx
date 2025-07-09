@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LandingPage from './views/landing/Landing'
 import AdminDashboard from './views/admin/AdminDashboard'
+import UserDashboard from './views/user/UserDashboard'
 
 function App() {
   
@@ -19,7 +20,7 @@ function App() {
         <Route path='/footer' element={<Footer />} />
         <Route path='/' element={<LandingPage />} />
         <Route path='/admin-dashboard' element={<AdminDashboard />} />
-        <Route path='/user-dashboard' element={<userDashboard />} />
+        <Route path='/user-dashboard' element={<UserDashboard />} />
       </Routes>
     </Router>
   )
