@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Registration from './views/shared/registration'
 import Login from './views/shared/login'
 import Footer from './views/layout/footer'
@@ -13,7 +13,6 @@ function App() {
   
   return (
     <BrowserRouter>
-      <Router>
         <ToastContainer position="top-right" autoClose={3000} />
         <Routes>
           <Route path='/register' element={ <Registration />} />
@@ -23,7 +22,6 @@ function App() {
           <Route path='/admin-dashboard' element={<AdminDashboard />} />
           <Route path='/user-dashboard' element={<UserDashboard />} />
         </Routes>
-      </Router>
     </BrowserRouter>
   )
 
