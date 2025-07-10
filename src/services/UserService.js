@@ -6,6 +6,6 @@ export async function fetchUsers() {
     if(!result.success) {
         throw new Error(result.message);
     } 
-    return result.users;
+    return result.Users;
     
 }

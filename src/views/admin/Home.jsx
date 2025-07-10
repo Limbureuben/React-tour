@@ -12,8 +12,18 @@ export default function Home() {
 
   useEffect(() => {
     fetchUsers()
-      .then(setUsers)
-      .catch((err) => setError(err.message))
+      .then((response) => {
+        if (response && Array.isArray(response.Users)) {
+          setUsers(response.Users);
+        } else {
+          setUsers([]); // fallback in case response.Users is missing
+          setError("Invalid response format");
+        }
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to fetch users");
+        setUsers([]);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -30,6 +40,8 @@ export default function Home() {
           </Box>
         ) : error ? (
           <Typography color="error">{error}</Typography>
+        ) : users.length === 0 ? (
+          <Typography>No users found.</Typography>
         ) : (
           <Table>
             <TableHead>

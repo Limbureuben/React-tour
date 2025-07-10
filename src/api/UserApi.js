@@ -43,16 +43,17 @@ export async function loginUser(data) {
 }
 
 
-export async function fetchUsers() {
+export async function fetchUsersAPI() {
   const res = await fetch(`${BASE_URL}/api/users`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-    }
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+    },
   });
 
   const json = await res.json();
+
   if (!res.ok) {
     return {
       success: false,
@@ -62,6 +63,6 @@ export async function fetchUsers() {
 
   return {
     success: true,
-    users: json,
+    Users: json.Users,  // Assuming backend returns { success: true, Users: [...] }
   };
 }
