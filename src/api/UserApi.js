@@ -41,3 +41,28 @@ export async function loginUser(data) {
     token: json.token
   };
 }
+
+
+export async function fetchUsers() {
+  const res = await fetch(`${BASE_URL}/api/users`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      // Add authorization header if needed, e.g.:
+      // 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+    }
+  });
+
+  const json = await res.json();
+  if (!res.ok) {
+    return {
+      success: false,
+      message: json.message || 'Failed to fetch users',
+    };
+  }
+
+  return {
+    success: true,
+    users: json,
+  };
+}
