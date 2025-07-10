@@ -1,4 +1,4 @@
-import { fetchUsers as fetchUsersAPI } from '../api/UserApi'
+import { fetchUsersAPI } from '../api/UserApi'
 
 export async function fetchUsers() {
     const result = await fetchUsersAPI();
