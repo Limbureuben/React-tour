@@ -98,7 +98,7 @@ export default function useLoginRegistrationForm() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  
+
   const handleSubmit = async (e, onClose) => {
     e.preventDefault();
     const validationErrors = {};
@@ -115,18 +115,23 @@ export default function useLoginRegistrationForm() {
       const result = await loginUser(formData);
 
       if (result.success) {
+        console.log("Login success", result.user);
         localStorage.setItem("authToken", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
         toast.success("Login successful!");
 
         if (result.user.role === "staff") {
+          console.log("Navigating to /admin-dashboard");
           navigate("/admin-dashboard");
         } else if (result.user.role === "user") {
+          console.log("Navigating to /user-dashboard");
           navigate("/user-dashboard");
         } else {
           navigate("/");
         }
-        if (onClose) onClose();
+        if (onClose) 
+          console.log("Closing modal");
+          onClose();
       } else {
         setErrors(result.errors || { form: result.message });
         toast.error(result.message || "Login failed");

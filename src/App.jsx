@@ -12,17 +12,19 @@ import UserDashboard from './views/user/UserDashboard'
 function App() {
   
   return (
-    <Router>
-      <ToastContainer position="top-right" autoClose={3000} />
-      <Routes>
-        <Route path='/register' element={ <Registration />} />
-        <Route path='/login' element={ <Login />} />
-        <Route path='/footer' element={<Footer />} />
-        <Route path='/' element={<LandingPage />} />
-        <Route path='/admin-dashboard' element={<AdminDashboard />} />
-        <Route path='/user-dashboard' element={<UserDashboard />} />
-      </Routes>
-    </Router>
+    <BrowserRouter>
+      <Router>
+        <ToastContainer position="top-right" autoClose={3000} />
+        <Routes>
+          <Route path='/register' element={ <Registration />} />
+          <Route path='/login' element={ <Login />} />
+          <Route path='/footer' element={<Footer />} />
+          <Route path='/' element={<LandingPage />} />
+          <Route path='/admin-dashboard' element={<AdminDashboard />} />
+          <Route path='/user-dashboard' element={<UserDashboard />} />
+        </Routes>
+      </Router>
+    </BrowserRouter>
   )
 
 }
