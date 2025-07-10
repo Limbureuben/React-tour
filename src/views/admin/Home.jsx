@@ -160,12 +160,15 @@ import {
   IconButton,
   Snackbar,
   Alert,
-  TextField
+  TextField,
+  Button
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { fetchUsers, deleteUser, createUser } from '../../services/UserService';
 import RegisterUserDialog from '../../views/admin/RegisterUserDialog';
+import Swal from 'sweetalert2';
+
 
 export default function Home() {
   const [users, setUsers] = useState([]);
@@ -177,18 +180,37 @@ export default function Home() {
   const [openDialog, setOpenDialog] = useState(false);
   const [newUser, setNewUser] = useState({ username: '', email: '', role: '' });
   const [formError, setFormError] = useState('');
+  const [pagination, setPagination] = useState({ page: 1, lastPage: 1 });
+
+
+//   const handlePageChange = (newPage) => {
+//   setLoading(true);
+//   fetchUsers(newPage)
+//     .then((data) => {
+//       setUsers(data.data);
+//       setFilteredUsers(data.data);
+//       setPagination({ page: data.current_page, lastPage: data.last_page });
+//     })
+//     .catch((err) => setError(err.message))
+//     .finally(() => setLoading(false));
+// };
 
   useEffect(() => {
-    fetchUsers()
-      .then((usersData) => {
-        if (Array.isArray(usersData)) {
-          setUsers(usersData);
-          setFilteredUsers(usersData);
+    setLoading(true);
+    fetchUsers(pagination.page)
+      .then((usersObj) => {
+        if (usersObj && Array.isArray(usersObj.data)) {
+          setUsers(usersObj.data);
+          setFilteredUsers(usersObj.data);
+          setPagination({
+            page: usersObj.current_page,
+            lastPage: usersObj.last_page,
+          });
           setError('');
         } else {
           setUsers([]);
           setFilteredUsers([]);
-          setError('Invalid response format: expected an array of users.');
+          setError('Invalid response format: expected Users.data array.');
         }
       })
       .catch((err) => {
@@ -197,7 +219,12 @@ export default function Home() {
         setFilteredUsers([]);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [pagination.page]);
+
+  const handlePageChange = (newPage) => {
+    setPagination((prev) => ({ ...prev, page: newPage }));
+  };
+
 
   useEffect(() => {
     if (!searchTerm) {
@@ -216,20 +243,33 @@ export default function Home() {
   }, [searchTerm, users]);
 
   const handleDelete = (id) => {
-    setLoading(true);
-    deleteUser(id)
-      .then(() => {
-        const updatedUsers = users.filter((user) => user.id !== id);
-        setUsers(updatedUsers);
-        setFilteredUsers(updatedUsers);
-        setSuccessMsg('User deleted successfully');
-        setError('');
-      })
-      .catch((err) => {
-        setError(err.message || 'Failed to delete user');
-      })
-      .finally(() => setLoading(false));
-  };
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'This action cannot be undone!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#06923E',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete user',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      setLoading(true);
+      deleteUser(id)
+        .then(() => {
+          const updatedUsers = users.filter((user) => user.id !== id);
+          setUsers(updatedUsers);
+          setFilteredUsers(updatedUsers);
+          setSuccessMsg('User deleted successfully');
+          setError('');
+        })
+        .catch((err) => {
+          setError(err.message || 'Failed to delete user');
+        })
+        .finally(() => setLoading(false));
+    }
+  });
+};
+
 
   const handleOpenDialog = () => {
     setNewUser({ username: '', email: '', role: '' });
@@ -268,13 +308,13 @@ export default function Home() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, p: 4, backgroundColor: '#f5f7fa', minHeight: '100vh' }}>
-      <Paper sx={{ p: 3, maxWidth: 900, margin: 'auto', borderRadius: 3, boxShadow: 3 }}>
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#1976d2' }}>
+    <Box sx={{ flexGrow: 1, p: 0, backgroundColor: '#ffffff', minHeight: '80vh' }}>
+      <Paper sx={{ p: 3, maxWidth: 1030, margin: 'auto', borderRadius: 0, boxShadow: 3 }}>
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={0}>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#06923E' }}>
             User Management
           </Typography>
-          <IconButton color="primary" onClick={handleOpenDialog} size="large">
+          <IconButton onClick={handleOpenDialog} sx={{ color: '#06923E'}} size="large">
             <AddIcon fontSize="large" />
           </IconButton>
         </Box>
@@ -300,8 +340,8 @@ export default function Home() {
         ) : filteredUsers.length === 0 ? (
           <Typography sx={{ fontStyle: 'italic', color: '#666' }}>No users found.</Typography>
         ) : (
-          <Table sx={{ minWidth: 650, borderRadius: 2, overflow: 'hidden' }}>
-            <TableHead sx={{ backgroundColor: '#1976d2' }}>
+          <Table sx={{ minWidth: 650, borderRadius: 0, overflow: 'hidden' }}>
+            <TableHead sx={{ backgroundColor: '#06923E' }}>
               <TableRow>
                 <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>ID</TableCell>
                 <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Username</TableCell>
@@ -340,6 +380,22 @@ export default function Home() {
             </TableBody>
           </Table>
         )}
+        <Button
+        disabled={pagination.page === 1}
+        onClick={() => handlePageChange(pagination.page - 1)}
+      >
+        Previous
+      </Button>
+      <Typography mx={2}>
+        Page {pagination.page} of {pagination.lastPage}
+      </Typography>
+      <Button
+        disabled={pagination.page === pagination.lastPage}
+        onClick={() => handlePageChange(pagination.page + 1)}
+      >
+        Next
+      </Button>
+
       </Paper>
 
       <Snackbar
