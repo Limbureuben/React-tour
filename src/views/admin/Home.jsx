@@ -3,7 +3,7 @@ import {
   Box, Typography, Paper, Table, TableHead, TableRow,
   TableCell, TableBody, CircularProgress
 } from '@mui/material';
-import { fetchUsers } from '../../services/userService';
+import { fetchUsers } from '../../services/UserService';
 
 export default function Home() {
   const [users, setUsers] = useState([]);

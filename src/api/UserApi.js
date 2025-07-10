@@ -48,8 +48,7 @@ export async function fetchUsers() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      // Add authorization header if needed, e.g.:
-      // 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`
     }
   });
 
