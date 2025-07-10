@@ -380,22 +380,23 @@ export default function Home() {
             </TableBody>
           </Table>
         )}
-        <Button
-        disabled={pagination.page === 1}
-        onClick={() => handlePageChange(pagination.page - 1)}
-      >
-        Previous
-      </Button>
-      <Typography mx={2}>
-        Page {pagination.page} of {pagination.lastPage}
-      </Typography>
-      <Button
-        disabled={pagination.page === pagination.lastPage}
-        onClick={() => handlePageChange(pagination.page + 1)}
-      >
-        Next
-      </Button>
-
+       <Box display="flex" justifyContent="center" alignItems="center" mt={2} gap={2}>
+          <Button
+            disabled={pagination.page === 1}
+            onClick={() => handlePageChange(pagination.page - 1)}
+          >
+            Previous
+          </Button>
+          <Typography>
+            Page {pagination.page} of {pagination.lastPage}
+          </Typography>
+          <Button
+            disabled={pagination.page === pagination.lastPage}
+            onClick={() => handlePageChange(pagination.page + 1)}
+          >
+            Next
+          </Button>
+        </Box>
       </Paper>
 
       <Snackbar
