@@ -7,16 +7,22 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import LoginRegistrationForm from '../../services/LoginService';
 
 export default function LoginForm({ onSwitch, onClose }) {
+
   const {
     formData, errors, isSubmitting, showPassword,
     handleChange, handleSubmit, handleClickShowPassword,
-  } = LoginRegistrationForm(onClose);
+  } = LoginRegistrationForm();
+
+    const onFormSubmit = (e) => {
+    handleSubmit(e, onClose);
+  };
+
 
   return (
     <Box sx={{ width: '100%', p: 0, m: 0 }}>
       <Box
         component="form"
-        onSubmit={handleSubmit}
+        onSubmit={onFormSubmit}
         noValidate
         sx={{
           backgroundColor: 'transparent',

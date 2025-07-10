@@ -80,13 +80,13 @@
 
 
 
-// LoginService.js
+
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { loginUser } from "../api/UserApi";
 import { toast } from "react-toastify";
 
-export default function LoginRegistrationForm(onClose) {
+export default function useLoginRegistrationForm() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -99,7 +99,8 @@ export default function LoginRegistrationForm(onClose) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  // Now accept onClose inside handleSubmit or add as param to hook return
+  const handleSubmit = async (e, onClose) => {
     e.preventDefault();
     const validationErrors = {};
     if (!formData.username) validationErrors.username = "Username is required";
@@ -119,7 +120,6 @@ export default function LoginRegistrationForm(onClose) {
         localStorage.setItem("user", JSON.stringify(result.user));
         toast.success("Login successful!");
 
-        // 🔥 Navigate based on role
         if (result.user.role === "staff") {
           navigate("/admin-dashboard");
         } else if (result.user.role === "user") {
@@ -127,7 +127,7 @@ export default function LoginRegistrationForm(onClose) {
         } else {
           navigate("/");
         }
-        onClose?.();
+        if (onClose) onClose();
       } else {
         setErrors(result.errors || { form: result.message });
         toast.error(result.message || "Login failed");
@@ -157,4 +157,5 @@ export default function LoginRegistrationForm(onClose) {
     handleClickShowPassword,
   };
 }
+
 
