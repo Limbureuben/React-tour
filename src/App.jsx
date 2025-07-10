@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import LandingPage from './views/landing/Landing'
 import AdminDashboard from './views/admin/AdminDashboard'
 import UserDashboard from './views/user/UserDashboard'
+import Home from './views/admin/Home'
 
 function App() {
   
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' element={<LandingPage />} />
           <Route path='/admin-dashboard' element={<AdminDashboard />} />
           <Route path='/user-dashboard' element={<UserDashboard />} />
+          <Route path="/users" element={<Home />} />
         </Routes>
     </BrowserRouter>
   )

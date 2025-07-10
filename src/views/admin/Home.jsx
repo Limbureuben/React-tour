@@ -49,7 +49,7 @@ export default function Home() {
     text: 'You won’t be able to revert this!',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonColor: '#3085d6',
+    confirmButtonColor: '#06923E',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!',
   });
@@ -67,9 +67,9 @@ export default function Home() {
 };
 
   return (
-    <Box sx={{ flexGrow: 1, p: 4, backgroundColor: '#f5f7fa', minHeight: '100vh' }}>
-      <Paper sx={{ p: 3, maxWidth: 900, margin: 'auto', borderRadius: 3, boxShadow: 3 }}>
-        <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: '#1976d2' }}>
+    <Box sx={{ flexGrow: 1, p: 4, backgroundColor: '#f5f7fa', minHeight: '82vh' }}>
+      <Paper sx={{ p: 1, maxWidth: 1300, margin: 'auto', borderRadius: 1, boxShadow: 3 }}>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: '#06923E' }}>
           User Management
         </Typography>
 
@@ -84,8 +84,8 @@ export default function Home() {
         ) : users.length === 0 ? (
           <Typography sx={{ fontStyle: 'italic', color: '#666' }}>No users found.</Typography>
         ) : (
-          <Table sx={{ minWidth: 650, borderRadius: 2, overflow: 'hidden' }}>
-            <TableHead sx={{ backgroundColor: '#1976d2' }}>
+          <Table sx={{ minWidth: 650, borderRadius: 0, overflow: 'hidden' }}>
+            <TableHead sx={{ backgroundColor: '#06923E' }}>
               <TableRow>
                 <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>ID</TableCell>
                 <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Username</TableCell>

@@ -13,8 +13,8 @@ const AdminDashboard = () => {
       <Header />
       <Sidebar />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar /> {/* This creates space below the AppBar */}
-        <Home />
+        <Toolbar />
+        {/* <Home /> */}
       </Box>
     </Box>
   );
