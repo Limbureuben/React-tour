@@ -120,6 +120,11 @@ export default function useLoginRegistrationForm() {
         localStorage.setItem("user", JSON.stringify(result.user));
         toast.success("Login successful!");
 
+        if (onClose) {
+        console.log("Closing modal");
+        onClose();
+      }
+
         if (result.user.role === "staff") {
           console.log("Navigating to /admin-dashboard");
           navigate("/admin-dashboard");
@@ -129,13 +134,6 @@ export default function useLoginRegistrationForm() {
         } else {
           navigate("/");
         }
-        if (onClose) {
-          console.log('Closed executed');
-          onclose();
-        }
-        // if (onClose) 
-        //   console.log("Closing modal");
-        //   onClose();
       } else {
         setErrors(result.errors || { form: result.message });
         toast.error(result.message || "Login failed");
