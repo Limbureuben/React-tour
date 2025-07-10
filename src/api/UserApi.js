@@ -1,12 +1,14 @@
-const BASE_URL = 'http://localhost:4000';
+// const BASE_URL = 'http://localhost:4000';
+
+const BASE_URL = 'http://localhost:8000';
 
 export async function registerUser(data) {
-  const res = await fetch(`${BASE_URL}/api/auth/register`, {
+  // const res = await fetch(`${BASE_URL}/api/auth/register`, {
+  const res = await fetch(`${BASE_URL}/api/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
-
   const result = await res.json();
 
   if (!res.ok) {
@@ -17,7 +19,8 @@ export async function registerUser(data) {
 
 
 export async function loginUser(data) {
-  const res = await fetch(`${BASE_URL}/api/auth/login`, {
+  // const res = await fetch(`${BASE_URL}/api/auth/login`, {
+  const res = await fetch(`${BASE_URL}/api/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
