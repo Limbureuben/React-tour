@@ -6,11 +6,11 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import LoginRegistrationForm from '../../services/LoginService';
 
-export default function LoginForm({ onSwitch }) {
+export default function LoginForm({ onSwitch, onClose }) {
   const {
     formData, errors, isSubmitting, showPassword,
     handleChange, handleSubmit, handleClickShowPassword,
-  } = LoginRegistrationForm();
+  } = LoginRegistrationForm(onClose);
 
   return (
     <Box sx={{ width: '100%', p: 0, m: 0 }}>
@@ -80,7 +80,7 @@ export default function LoginForm({ onSwitch }) {
           }}
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Creating Account...' : 'Sign Up'}
+          {isSubmitting ? 'Logging In...' : 'Sign In'}
         </Button>
 
         <Typography variant="body2" align="center" mt={2}>

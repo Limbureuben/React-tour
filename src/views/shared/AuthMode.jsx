@@ -21,11 +21,12 @@ export default function AuthModal({ open, onClose }) {
       </IconButton>
       <DialogContent>
         {isRegister ? (
-          <RegistrationForm onSwitch={toggleForm} />
+          <RegistrationForm onSwitch={toggleForm} onClose={onClose} />
         ) : (
-          <LoginForm onSwitch={toggleForm} />
+          <LoginForm onSwitch={toggleForm} onClose={onClose} />
         )}
       </DialogContent>
     </Dialog>
   );
 }
+
