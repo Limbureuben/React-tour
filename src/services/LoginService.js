@@ -86,7 +86,7 @@ import { useState } from "react";
 import { loginUser } from "../api/UserApi";
 import { toast } from "react-toastify";
 
-export default function LoginRegistrationForm() {
+export default function LoginRegistrationForm(onClose) {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -127,6 +127,7 @@ export default function LoginRegistrationForm() {
         } else {
           navigate("/");
         }
+        onClose?.();
       } else {
         setErrors(result.errors || { form: result.message });
         toast.error(result.message || "Login failed");
