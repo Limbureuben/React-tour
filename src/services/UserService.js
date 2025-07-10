@@ -1,4 +1,4 @@
-import { fetchUsersAPI } from '../api/UserApi'
+import { fetchUsersAPI, deleteUserAPI } from '../api/UserApi'
 
 export async function fetchUsers() {
   const result = await fetchUsersAPI();
@@ -8,4 +8,9 @@ export async function fetchUsers() {
   }
 
   return result.Users; // this is the array of users
+}
+
+
+export async function deleteUser(userId) {
+  return await deleteUserAPI(userId);
 }

@@ -66,3 +66,22 @@ export async function fetchUsersAPI() {
     Users: json.Users, // exact key as backend returns
   };
 }
+
+
+
+export async function deleteUserAPI(userId) {
+  const res = await fetch(`${BASE_URL}/api/users/${userId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+    },
+  });
+
+  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(json.message || 'Failed to delete user');
+  }
+
+  return json;
+}
