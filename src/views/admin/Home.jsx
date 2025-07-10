@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box, Typography, Paper, Table, TableHead, TableRow,
-  TableCell, TableBody, CircularProgress
-} from '@mui/material';
+import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress } from '@mui/material';
 import { fetchUsers } from '../../services/UserService';
 
 export default function Home() {
@@ -13,7 +10,6 @@ export default function Home() {
   useEffect(() => {
     fetchUsers()
       .then((usersData) => {
-        // fetchUsers should return the array of users directly
         if (Array.isArray(usersData)) {
           setUsers(usersData);
           setError('');
@@ -31,9 +27,6 @@ export default function Home() {
 
   return (
     <Box sx={{ flexGrow: 1, p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Users List
-      </Typography>
 
       <Paper sx={{ p: 2 }}>
         {loading ? (
