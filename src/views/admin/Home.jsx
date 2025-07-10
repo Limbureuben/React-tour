@@ -12,16 +12,18 @@ export default function Home() {
 
   useEffect(() => {
     fetchUsers()
-      .then((response) => {
-        if (response && Array.isArray(response.Users)) {
-          setUsers(response.Users);
+      .then((usersData) => {
+        // fetchUsers should return the array of users directly
+        if (Array.isArray(usersData)) {
+          setUsers(usersData);
+          setError('');
         } else {
-          setUsers([]); // fallback in case response.Users is missing
-          setError("Invalid response format");
+          setUsers([]);
+          setError('Invalid response format: expected an array of users.');
         }
       })
       .catch((err) => {
-        setError(err.message || "Failed to fetch users");
+        setError(err.message || 'Failed to fetch users');
         setUsers([]);
       })
       .finally(() => setLoading(false));

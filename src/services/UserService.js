@@ -1,11 +1,11 @@
 import { fetchUsersAPI } from '../api/UserApi'
 
 export async function fetchUsers() {
-    const result = await fetchUsersAPI();
+  const result = await fetchUsersAPI();
 
-    if(!result.success) {
-        throw new Error(result.message);
-    } 
-    return result.Users;
-    
+  if (!result.success) {
+    throw new Error(result.message);
+  }
+
+  return result.Users; // this is the array of users
 }

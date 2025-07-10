@@ -54,7 +54,7 @@ export async function fetchUsersAPI() {
 
   const json = await res.json();
 
-  if (!res.ok) {
+  if (!res.ok || !json.success) {
     return {
       success: false,
       message: json.message || 'Failed to fetch users',
@@ -63,6 +63,6 @@ export async function fetchUsersAPI() {
 
   return {
     success: true,
-    Users: json.Users,  // Assuming backend returns { success: true, Users: [...] }
+    Users: json.Users, // exact key as backend returns
   };
 }
