@@ -85,3 +85,23 @@ export async function deleteUserAPI(userId) {
 
   return json;
 }
+
+
+export async function createUserAPI(data) {
+  const response = await fetch(`${BASE_URL}/api/users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message || 'Failed to create user');
+  }
+
+  return json.user || json;
+}

@@ -1,4 +1,4 @@
-import { fetchUsersAPI, deleteUserAPI } from '../api/UserApi'
+import { fetchUsersAPI, deleteUserAPI, createUserAPI } from '../api/UserApi'
 
 export async function fetchUsers() {
   const result = await fetchUsersAPI();
@@ -13,4 +13,10 @@ export async function fetchUsers() {
 
 export async function deleteUser(userId) {
   return await deleteUserAPI(userId);
+}
+
+
+export async function createUser(data) {
+  const result = await createUserAPI(data);
+  return result;
 }

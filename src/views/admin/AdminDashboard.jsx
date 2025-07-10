@@ -14,7 +14,7 @@ const AdminDashboard = () => {
       <Sidebar />
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        {/* <Home /> */}
+        <Home />
       </Box>
     </Box>
   );
