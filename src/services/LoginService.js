@@ -98,8 +98,7 @@ export default function useLoginRegistrationForm() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  // Now accept onClose inside handleSubmit or add as param to hook return
+  
   const handleSubmit = async (e, onClose) => {
     e.preventDefault();
     const validationErrors = {};

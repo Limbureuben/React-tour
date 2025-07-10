@@ -4,14 +4,14 @@ import {
   InputLabel, OutlinedInput, InputAdornment, IconButton, FormHelperText
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import LoginRegistrationForm from '../../services/LoginService';
+import useLoginRegistrationForm from '../../services/LoginService';
 
 export default function LoginForm({ onSwitch, onClose }) {
 
   const {
     formData, errors, isSubmitting, showPassword,
     handleChange, handleSubmit, handleClickShowPassword,
-  } = LoginRegistrationForm();
+  } = useLoginRegistrationForm();
 
     const onFormSubmit = (e) => {
     handleSubmit(e, onClose);
