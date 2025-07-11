@@ -105,6 +105,8 @@ export async function createUserAPI(data) {
   return json.user || json;
 }
 
+
+
 export async function fetchproductAPI(page = 1) {
   const res = await fetch(`${BASE_URL}/api/products?page=${page}`, {
     method: 'GET',
