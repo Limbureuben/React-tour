@@ -42,32 +42,6 @@ export async function loginUser(data) {
   };
 }
 
-
-// export async function fetchUsersAPI() {
-//   const res = await fetch(`${BASE_URL}/api/users`, {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-//     },
-//   });
-
-//   const json = await res.json();
-
-//   if (!res.ok || !json.success) {
-//     return {
-//       success: false,
-//       message: json.message || 'Failed to fetch users',
-//     };
-//   }
-
-//   return {
-//     success: true,
-//     Users: json.Users,
-//   };
-// }
-
-
 export async function fetchUsersAPI(page = 1) {
   const res = await fetch(`${BASE_URL}/api/users?page=${page}`, {
     method: 'GET',
@@ -129,4 +103,28 @@ export async function createUserAPI(data) {
   }
 
   return json.user || json;
+}
+
+export async function fetchproductAPI(page = 1) {
+  const res = await fetch(`${BASE_URL}/api/products?page=${page}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+    },
+  });
+
+  const json = await res.json();
+
+  if (!res.ok || !json.success) {
+    return {
+      success: false,
+      message: json.message || 'Failed to fetch users',
+    };
+  }
+
+  return {
+    success: true,
+    Users: json.Users,
+  };
 }
