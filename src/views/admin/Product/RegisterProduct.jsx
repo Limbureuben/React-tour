@@ -29,13 +29,13 @@ export default function RegisterProductDialog({
       maxWidth="sm"
       PaperProps={{
         sx: {
-          borderRadius: 3,
+          borderRadius: 1,
           bgcolor: '#f9f9f9',
-          height: 520,
+          height: 400,
         },
       }}
     >
-      <DialogTitle sx={{ fontWeight: 'bold', fontSize: '1.5rem', color: '#1976d2' }}>
+      <DialogTitle sx={{ fontWeight: 'bold', fontSize: '1.5rem', color: '#06923E' }}>
         Add New Product
       </DialogTitle>
 
@@ -112,7 +112,7 @@ export default function RegisterProductDialog({
               variant="outlined"
               component="label"
               startIcon={<PhotoCamera />}
-              sx={{ textTransform: 'none', bgcolor: 'white', borderRadius: 1 }}
+              sx={{ textTransform: 'none', bgcolor: 'white', borderRadius: 1, color: '#06923E' }}
             >
               Upload Image
               <input
@@ -142,7 +142,7 @@ export default function RegisterProductDialog({
                   height: 70,
                   objectFit: 'cover',
                   borderRadius: 1,
-                  border: '1px solid #ccc',
+                  border: '1px solid #06923E',
                 }}
               />
             )}
@@ -160,7 +160,7 @@ export default function RegisterProductDialog({
         <Button onClick={onClose} color="inherit">
           Cancel
         </Button>
-        <Button onClick={onSubmit} disabled={loading} variant="contained" color="primary">
+        <Button onClick={onSubmit} disabled={loading} variant="contained" sx={{ backgroundColor: '#06923E'}}>
           Add
         </Button>
       </DialogActions>
