@@ -16,12 +16,12 @@ function App() {
   return (
     <BrowserRouter>
         <ToastContainer position="top-right" autoClose={3000} />
-        <Routes>
+        <Routes path='/admin' element={<AdminDashboard />} >
           <Route path='/register' element={ <Registration />} />
           <Route path='/login' element={ <Login />} />
           <Route path='/footer' element={<Footer />} />
           <Route path='/' element={<LandingPage />} />
-          <Route path='/admin-dashboard' element={<AdminDashboard />} />
+          {/* <Route path='/admin-dashboard' element={<AdminDashboard />} /> */}
           <Route path='/user-dashboard' element={<UserDashboard />} />
           <Route path="/users" element={<Home />} />
           <Route path='/products' element={<Products />} />
