@@ -128,13 +128,13 @@ export async function fetchproductAPI(page = 1) {
   if (!res.ok || !json.success) {
     return {
       success: false,
-      message: json.message || 'Failed to fetch users',
+      message: json.message || 'Failed to fetch products',
     };
   }
 
   return {
     success: true,
-    Users: json.Users,
+    products: json.products
   };
 }
 
