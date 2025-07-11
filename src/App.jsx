@@ -9,6 +9,7 @@ import LandingPage from './views/landing/Landing'
 import AdminDashboard from './views/admin/AdminDashboard'
 import UserDashboard from './views/user/UserDashboard'
 import Home from './views/admin/Home'
+import Products from './views/admin/Product/Products'
 
 function App() {
   
@@ -23,6 +24,7 @@ function App() {
           <Route path='/admin-dashboard' element={<AdminDashboard />} />
           <Route path='/user-dashboard' element={<UserDashboard />} />
           <Route path="/users" element={<Home />} />
+          <Route path='/products' element={<Products />} />
         </Routes>
     </BrowserRouter>
   )
