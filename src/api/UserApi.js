@@ -42,6 +42,7 @@ export async function loginUser(data) {
   };
 }
 
+
 export async function fetchUsersAPI(page = 1) {
   const res = await fetch(`${BASE_URL}/api/users?page=${page}`, {
     method: 'GET',
@@ -150,7 +151,9 @@ export async function createProductAPI(productData) {
 
   const res = await fetch(`${BASE_URL}/api/products`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+     },
     body: formData,
   });
 

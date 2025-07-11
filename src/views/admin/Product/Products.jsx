@@ -19,7 +19,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { fetchProducts, createProduct } from '../../../services/ProductService';
 import RegisterProductDialog from './RegisterProduct';
-import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
+
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -100,8 +101,10 @@ export default function Products() {
         setFilteredProducts(updated);
         setSuccessMsg('Product added successfully');
         setOpenDialog(false);
+        toast.success('Product added successfully!');
     } catch (err) {
         setFormError(err.message || 'Error adding product');
+        toast.error('Failed to add product');
     } finally {
         setLoading(false);
     }

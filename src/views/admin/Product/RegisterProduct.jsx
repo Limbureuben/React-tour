@@ -126,14 +126,13 @@ export default function RegisterProductDialog({
                         target: {
                         name: 'image',
                         value: file,
-                        preview: URL.createObjectURL(file),
                         },
                     });
                     }
                 }}
                 />
             </Button>
-            {newProduct.image && (
+            {/* {newProduct.image && (
               <Box
                 component="img"
                 src={newProduct.image}
@@ -146,7 +145,7 @@ export default function RegisterProductDialog({
                   border: '1px solid #06923E',
                 }}
               />
-            )}
+            )} */}
           </Box>
 
           {formError && (
