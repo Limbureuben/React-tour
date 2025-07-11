@@ -139,10 +139,19 @@ export async function fetchproductAPI(page = 1) {
 }
 
 export async function createProductAPI(productData) {
+
+  const formData  = new FormData();
+  formData.append('name', productData.name);
+  formData.append('description', productData.description);
+  formData.append('price', productData.price);
+  formData.append('discount', productData.discount);
+  formData.append('stock', productData.stock);
+  formData.append('image', productData.image);
+
   const res = await fetch(`${BASE_URL}/api/products`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(productData),
+    body: formData,
   });
 
   if (!res.ok) {

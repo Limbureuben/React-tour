@@ -120,17 +120,18 @@ export default function RegisterProductDialog({
                 accept="image/*"
                 type="file"
                 onChange={e => {
-                  if (e.target.files && e.target.files[0]) {
+                    if (e.target.files && e.target.files[0]) {
+                    const file = e.target.files[0];
                     onChange({
-                      target: {
+                        target: {
                         name: 'image',
-                        value: URL.createObjectURL(e.target.files[0]),
-                        files: e.target.files,
-                      },
+                        value: file,
+                        preview: URL.createObjectURL(file),
+                        },
                     });
-                  }
+                    }
                 }}
-              />
+                />
             </Button>
             {newProduct.image && (
               <Box
