@@ -106,6 +106,13 @@ export async function createUserAPI(data) {
 }
 
 
+// export async function fetchProducts(page = 1) {
+//   const res = await fetch(`${BASE_URL}/products?page=${page}`);
+//   const data = await res.json();
+//   return data.products;
+// }
+
+
 
 export async function fetchproductAPI(page = 1) {
   const res = await fetch(`${BASE_URL}/api/products?page=${page}`, {
@@ -129,4 +136,20 @@ export async function fetchproductAPI(page = 1) {
     success: true,
     Users: json.Users,
   };
+}
+
+export async function createProductAPI(productData) {
+  const res = await fetch(`${BASE_URL}/api/products`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(productData),
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Failed to create product');
+  }
+
+  return await res.json();
+  
 }
