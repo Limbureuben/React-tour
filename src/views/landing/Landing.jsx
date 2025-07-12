@@ -7,7 +7,7 @@ import { FavoriteBorder,Favorite,Star,LocalShipping,LocationOn,Category,
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import RegistrationForm from '../shared/registration'
 import AuthModal from '../shared/AuthMode'
-import { fetchProducts } from '../../services/ProductService'
+import { landingproductAPI } from '../../api/UserApi'
 
 const theme = createTheme({
   palette: {
@@ -46,19 +46,20 @@ function LandingPage() {
 
 
 useEffect(() => {
-  async function loadProducts() {
+  async function loadLandingProducts() {
     try {
-      const productData = await fetchProducts();
-      setProducts(productData.data || productData); // adapt based on response shape
+      const result = await landingproductAPI();
+      setProducts(result);
     } catch (err) {
-      console.error('Failed to fetch products:', err.message);
+      console.error(err.message);
     } finally {
       setLoading(false);
     }
   }
 
-  loadProducts();
+  loadLandingProducts();
 }, []);
+
 
 
 if (loading) {

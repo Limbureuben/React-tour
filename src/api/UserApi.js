@@ -210,3 +210,21 @@ export async function updateProductAPI(productId, productData) {
 
   return await res.json();
 }
+
+
+export async function landingproductAPI() {
+  const res = await fetch(`${BASE_URL}/api/products/landing`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+    },
+  });
+
+  const json = await res.json();
+
+  if (!res.ok || !json.success) {
+    throw new Error(json.message || 'Failed to fetch landing products');
+  }
+  return json.products;
+}
