@@ -302,7 +302,20 @@ export default function Products() {
         loading={loading}
       />
 
-      <EditProductDialog
+      {editDialogOpen && editProduct && (
+        <EditProductDialog
+          open={editDialogOpen}
+          onClose={() => setEditDialogOpen(false)}
+          product={editProduct}
+          onChange={handleEditChange}
+          onSubmit={handleUpdateProduct}
+          formError={formError}
+          loading={loading}
+        />
+      )}
+
+
+      {/* <EditProductDialog
         open={editDialogOpen}
         onClose={() => setEditDialogOpen(false)}
         product={editProduct}
@@ -310,7 +323,7 @@ export default function Products() {
         onSubmit={handleUpdateProduct}
         formError={formError}
         loading={loading}
-      />
+      /> */}
     </Box>
   );
 }
