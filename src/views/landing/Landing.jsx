@@ -9,6 +9,7 @@ import RegistrationForm from '../shared/registration'
 import AuthModal from '../shared/AuthMode'
 import { landingproductAPI } from '../../api/UserApi'
 
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -19,13 +20,6 @@ const theme = createTheme({
     },
   },
 });
-
-
-const propertyTypes = [
-    { icon: <LocalShipping />, label: 'Packages' },
-    { icon: <Category />, label: 'Category' }
-];
-
 
 
 // function LandingPage() {
@@ -167,112 +161,125 @@ const propertyTypes = [
 
 function LandingPage() {
   const [authOpen, setAuthOpen] = useState(false);
-  const [liked, setLiked] = useState([]);
+  const [likedProperties, setLikedProperties] = useState([]);
   const [products, setProducts] = useState([]);
-  const [slideIndex, setSlideIndex] = useState(0);
-  const containerRef = useRef(null);
-  const intervalRef = useRef(null);
+  const [loading, setLoading] = useState(true);
+  const [slidePosition, setSlidePosition] = useState(0);
+  const slideRef = useRef(null);
 
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        const res = await landingproductAPI();
-        const data = [...res];
-
-        // Repeat data to simulate infinite carousel
-        while (data.length < 10) data.push(...res);
-        setProducts(data.slice(0, 10)); // ensure enough for circular effect
-      } catch (err) {
-        console.error(err.message);
-      }
-    }
-    loadProducts();
-  }, []);
-
-  useEffect(() => {
-    if (products.length <= 5) return;
-
-    intervalRef.current = setInterval(() => {
-      setSlideIndex(prev => prev + 1);
-    }, 3000);
-
-    return () => clearInterval(intervalRef.current);
-  }, [products]);
-
-  useEffect(() => {
-    const container = containerRef.current;
-
-    if (!container) return;
-
-    container.style.transition = 'transform 0.5s ease-in-out';
-    container.style.transform = `translateX(-${(slideIndex % products.length) * 20}%)`;
-
-    if ((slideIndex % products.length) === (products.length - 5)) {
-      // Wait for animation to finish, then jump back to start
-      setTimeout(() => {
-        container.style.transition = 'none';
-        setSlideIndex(0);
-        container.style.transform = `translateX(0%)`;
-      }, 500);
-    }
-  }, [slideIndex, products.length]);
-
-  const toggleLike = (id) => {
-    setLiked((prev) =>
-      prev.includes(id) ? prev.filter(pid => pid !== id) : [...prev, id]
+  const toggleLike = (propertyId) => {
+    setLikedProperties((prev) =>
+      prev.includes(propertyId) ? prev.filter(id => id !== propertyId) : [...prev, propertyId]
     );
   };
 
+  useEffect(() => {
+    async function loadLandingProducts() {
+      try {
+        const result = await landingproductAPI();
+        const fullList = [...result];
+        while (fullList.length < 5) fullList.push(...result);
+        setProducts(fullList.slice(0, 5));
+      } catch (err) {
+        console.error(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadLandingProducts();
+  }, []);
+
+  useEffect(() => {
+    if (products.length === 0) return;
+    const interval = setInterval(() => {
+      setSlidePosition((prev) => (prev + 1) % products.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [products]);
+
+  const getTranslatedProducts = () =>
+    products.slice(slidePosition).concat(products.slice(0, slidePosition));
+
+  if (loading) {
+    return (
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Typography variant="h6">Loading products...</Typography>
+      </Container>
+    );
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      <Container maxWidth="lg" sx={{ pt: 4 }}>
-        <AppBar position="static" color="inherit" elevation={0}>
-          <Toolbar disableGutters>
-            <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold', color: '#06923E' }}>
+      <Box sx={{ width: '100%', backgroundColor: '#f5f5f5', pb: 6 }}>
+        {/* Hero Header */}
+        <Box
+          sx={{
+            py: 1,
+            background: 'linear-gradient(to right, #06923E, #057A34)',
+            color: '#fff',
+            textAlign: 'center',
+          }}
+        >
+          <Typography variant="h3" sx={{ fontWeight: 700, letterSpacing: 1 }}>
+            Welcome to Our Product Showcase
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mt: 1 }}>
+            Discover great deals, beautiful homes, and more!
+          </Typography>
+        </Box>
+
+        {/* Top Navigation Bar */}
+        <AppBar position="static" color="transparent" elevation={0}>
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', px: 2 }}>
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 'bold',
+                background: 'linear-gradient(to right, #06923E, #057A34)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
               Available Products
             </Typography>
+
             <Button
               variant="contained"
               sx={{
-                borderRadius: 0,
-                ml: 4,
+                borderRadius: '999px',
                 backgroundColor: '#06923E',
                 color: '#fff',
-                '&:hover': { backgroundColor: '#057A34' },
+                textTransform: 'none',
+                px: 4,
+                '&:hover': {
+                  backgroundColor: '#057A34',
+                },
               }}
               onClick={() => setAuthOpen(true)}
             >
               Sign Up
             </Button>
-            <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
           </Toolbar>
         </AppBar>
 
-        <Box sx={{ borderBottom: '1px solid #eee', py: 2 }}>
-          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-            {propertyTypes.map((type, index) => (
-              <Box key={index} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <IconButton sx={{ border: '1px solid #ddd', p: 2, color: index === 0 ? '#06923E' : 'inherit' }}>
-                  {type.icon}
-                </IconButton>
-                <Typography variant="caption" sx={{ mt: 1 }}>{type.label}</Typography>
-              </Box>
-            ))}
-          </Box>
-        </Box>
+        <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
 
-        {/* Carousel */}
-        <Box sx={{ overflow: 'hidden', mt: 4 }}>
+        
+
+        {/* Product Cards (unchanged) */}
+        <Box sx={{ width: '100%', overflow: 'hidden', mt: 10 }}>
           <Box
-            ref={containerRef}
             sx={{
               display: 'flex',
-              width: `${products.length * 20}%`,
+              width: '100%',
+              transition: 'transform 0.8s ease-in-out',
+              transform: 'translateX(0%)',
             }}
+            ref={slideRef}
           >
-            {products.map((product, index) => (
+            {getTranslatedProducts().map((product, index) => (
               <Box
-                key={`${product.id}-${index}`}
+                key={product.id + '-' + index}
                 sx={{
                   flex: '0 0 20%',
                   px: 1,
@@ -287,11 +294,11 @@ function LandingPage() {
                       position: 'absolute',
                       top: 10,
                       right: 10,
-                      color: liked.includes(product.id) ? '#06923E' : 'white',
+                      color: likedProperties.includes(product.id) ? '#06923E' : 'white',
                     }}
                     onClick={() => toggleLike(product.id)}
                   >
-                    {liked.includes(product.id) ? <Favorite /> : <FavoriteBorder />}
+                    {likedProperties.includes(product.id) ? <Favorite /> : <FavoriteBorder />}
                   </IconButton>
                   <CardMedia
                     component="img"
@@ -303,8 +310,10 @@ function LandingPage() {
                   <CardContent sx={{ p: 0, pt: 1 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                        ${product.price}
-                        <Typography component="span" variant="body2" color="text.secondary"> night</Typography>
+                        Tsh {product.price}
+                        <Typography component="span" variant="body2" color="text.secondary">
+                          {' '}night
+                        </Typography>
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Star sx={{ color: '#06923E', fontSize: '1rem' }} />
@@ -312,17 +321,13 @@ function LandingPage() {
                       </Box>
                     </Box>
                     <Typography variant="body1" sx={{ mt: 0.5 }}>{product.name}</Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ display: 'flex', alignItems: 'center' }}>
-                      <LocationOn sx={{ fontSize: '1rem', mr: 0.5 }} />
-                      {product.location ?? 'No location'}
-                    </Typography>
                   </CardContent>
                 </Card>
               </Box>
             ))}
           </Box>
         </Box>
-      </Container>
+      </Box>
     </ThemeProvider>
   );
 }
