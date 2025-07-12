@@ -17,9 +17,12 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { fetchProducts, createProduct } from '../../../services/ProductService';
+import { fetchProducts, createProduct, deleteProduct } from '../../../services/ProductService';
 import RegisterProductDialog from './RegisterProduct';
 import { toast } from 'react-toastify';
+import EditIcon from '@mui/icons-material/Edit';
+import Swal from 'sweetalert2';
+
 
 
 export default function Products() {
@@ -110,6 +113,34 @@ export default function Products() {
     }
     };
 
+    const handleDelete = (id) => {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'This action cannot be undone!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#06923E',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          deleteProduct(id).then(() => {
+            const updated = products.filter((p) => p.id !== id);
+            setProducts(updated);
+            setFilteredProducts(updated);
+            toast.success('Product deleted successfully');
+          }).catch((err) => {
+            toast.error(err.message || 'Failed to delete product');
+          });
+        }
+      });
+    }
+
+    const handleEdit = (product) => {
+      setNewProduct(product);
+      setOpenDialog(true);
+    }
+
 
   return (
     <Box sx={{ flexGrow: 1, p: 0, backgroundColor: '#ffffff', minHeight: '80vh' }}>
@@ -153,6 +184,7 @@ export default function Products() {
                 <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Stock</TableCell>
                 <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Discount</TableCell>
                 <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>Image</TableCell>
+                <TableCell sx={{ color: '#fff', fontWeight: 'bold', textAlign: 'center' }}>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -169,6 +201,14 @@ export default function Products() {
                       alt={product.name}
                       style={{ width: 50, height: 50, objectFit: 'cover' }}
                     />
+                  </TableCell>
+                  <TableCell align="center">
+                    <IconButton color="primary" onClick={() => handleEdit(product)}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton color="error" onClick={() => handleDelete(product.id)}>
+                      <DeleteIcon />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}

@@ -163,3 +163,19 @@ export async function createProductAPI(productData) {
 
   return await res.json();
 }
+
+
+export async function deleteProductAPI(productId) {
+  const res = await fetch(`${BASE_URL}/products/${productId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+    },
+  });
+
+  const json = await res.json();
+  if (!res.ok) {
+    throw new Error(json.message || 'Failed to delete product');
+  }
+  return json;
+}

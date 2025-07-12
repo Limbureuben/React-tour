@@ -1,4 +1,4 @@
-import { fetchproductAPI,  createProductAPI } from "../api/UserApi";
+import { fetchproductAPI,  createProductAPI, deleteProductAPI } from "../api/UserApi";
 
 
 export async function fetchProducts(page = 1) {
@@ -18,4 +18,14 @@ export async function createProduct(productData) {
     } catch (err) {
     throw new Error(err.message || 'Failed to create product');
   }
+}
+
+
+export async function deleteProduct(id) {
+    try {
+        const response = await deleteProductAPI(id);
+        return response;
+    } catch(err) {
+        throw new Error(err.message || 'Failed to delete product');
+    }
 }
