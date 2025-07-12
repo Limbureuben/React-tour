@@ -85,13 +85,13 @@ export default function EditProductDialog({
                 }}
               />
             </Button>
-            {product.image && (
+            {product?.imagePreview || product?.image ? (
               <img
-                src={product.image.preview || product.image}
+                src={product.imagePreview || product.image}
                 alt="Preview"
                 style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 4 }}
               />
-            )}
+            ) : null}
           </Box>
 
           {formError && <Typography color="error">{formError}</Typography>}

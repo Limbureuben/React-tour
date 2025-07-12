@@ -153,13 +153,23 @@ export default function Products() {
     };
 
     const handleEditChange = (e) => {
-      const { name, value, preview } = e.target;
-      setEditProduct((prev) => ({
-        ...prev,
-        [name]: value,
-        image: preview ? { ...value, preview } : value,
-      }));
+      const { name, value, files } = e.target;
+
+      if (name === 'image' && files?.length > 0) {
+        const file = files[0];
+        setEditProduct((prev) => ({
+          ...prev,
+          image: file,
+          imagePreview: URL.createObjectURL(file),
+        }));
+      } else {
+        setEditProduct((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
     };
+
 
     const handleUpdateProduct = async () => {
       // validate and call update API

@@ -192,6 +192,8 @@ export async function updateProductAPI(productId, productData) {
     formData.append('image', productData.image);
   }
 
+  formData.append('_method', 'PUT');
+
   const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
     method: 'POST', // or PUT/PATCH depending
     headers: {
