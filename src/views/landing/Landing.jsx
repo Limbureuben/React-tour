@@ -220,8 +220,8 @@ function LandingPage() {
             textAlign: 'center',
           }}
         >
-          <Typography variant="h3" sx={{ fontWeight: 700, letterSpacing: 1 }}>
-            Welcome to Our Product Showcase
+          <Typography variant="h4" sx={{ fontWeight: 700, letterSpacing: 1 }}>
+            EXPLORE OUR PREMIUM BEDS
           </Typography>
           <Typography variant="subtitle1" sx={{ mt: 1 }}>
             Discover great deals, beautiful homes, and more!
@@ -246,7 +246,7 @@ function LandingPage() {
             <Button
               variant="contained"
               sx={{
-                borderRadius: '999px',
+                borderRadius: '2px',
                 backgroundColor: '#06923E',
                 color: '#fff',
                 textTransform: 'none',
