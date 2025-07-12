@@ -166,7 +166,7 @@ export async function createProductAPI(productData) {
 
 
 export async function deleteProductAPI(productId) {
-  const res = await fetch(`${BASE_URL}/products/${productId}`, {
+  const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
@@ -178,4 +178,32 @@ export async function deleteProductAPI(productId) {
     throw new Error(json.message || 'Failed to delete product');
   }
   return json;
+}
+
+export async function updateProductAPI(productId, productData) {
+  const formData = new FormData();
+  formData.append('name', productData.name);
+  formData.append('description', productData.description);
+  formData.append('price', productData.price);
+  formData.append('discount', productData.discount);
+  formData.append('stock', productData.stock);
+
+  if (productData.image instanceof File) {
+    formData.append('image', productData.image);
+  }
+
+  const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
+    method: 'POST', // or PUT/PATCH depending
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+    },
+    body: formData,
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.message || 'Failed to update product');
+  }
+
+  return await res.json();
 }

@@ -1,4 +1,4 @@
-import { fetchproductAPI,  createProductAPI, deleteProductAPI } from "../api/UserApi";
+import { fetchproductAPI,  createProductAPI, deleteProductAPI, updateProductAPI } from "../api/UserApi";
 
 
 export async function fetchProducts(page = 1) {
@@ -27,5 +27,14 @@ export async function deleteProduct(id) {
         return response;
     } catch(err) {
         throw new Error(err.message || 'Failed to delete product');
+    }
+}
+
+export async function updateProduct(id, productData) {
+    try {
+        const result = await updateProductAPI(id, productData);
+        return result;
+    } catch(err) {
+        throw new Error(err.message || 'Failed to edit the product')
     }
 }

@@ -17,11 +17,12 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { fetchProducts, createProduct, deleteProduct } from '../../../services/ProductService';
+import { fetchProducts, createProduct, deleteProduct, updateProduct } from '../../../services/ProductService';
 import RegisterProductDialog from './RegisterProduct';
 import { toast } from 'react-toastify';
 import EditIcon from '@mui/icons-material/Edit';
 import Swal from 'sweetalert2';
+import EditProductDialog from './EditProductDialog'
 
 
 
@@ -33,6 +34,10 @@ export default function Products() {
   const [successMsg, setSuccessMsg] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [openDialog, setOpenDialog] = useState(false);
+
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editProduct, setEditProduct] = useState(null);
+
   const [newProduct, setNewProduct] = useState({
     name: '', description: '', price: '', discount: '', stock: '', image: ''
   });
@@ -136,10 +141,41 @@ export default function Products() {
       });
     }
 
-    const handleEdit = (product) => {
-      setNewProduct(product);
-      setOpenDialog(true);
-    }
+    // const handleEdit = (product) => {
+    //   setNewProduct(product);
+    //   setOpenDialog(true);
+    // }
+
+    const handleEditClick = (product) => {
+      setEditProduct({ ...product });
+      setFormError('');
+      setEditDialogOpen(true);
+    };
+
+    const handleEditChange = (e) => {
+      const { name, value, preview } = e.target;
+      setEditProduct((prev) => ({
+        ...prev,
+        [name]: value,
+        image: preview ? { ...value, preview } : value,
+      }));
+    };
+
+    const handleUpdateProduct = async () => {
+      // validate and call update API
+      try {
+        setLoading(true);
+        await updateProduct(editProduct.id, editProduct);
+        setSuccessMsg('Product updated successfully');
+        setEditDialogOpen(false);
+        // Optionally refetch products or update locally
+      } catch (err) {
+        setFormError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
 
 
   return (
@@ -203,7 +239,7 @@ export default function Products() {
                     />
                   </TableCell>
                   <TableCell align="center">
-                    <IconButton color="primary" onClick={() => handleEdit(product)}>
+                    <IconButton color="primary" size='small' onClick={() => handleEditClick(product)}>
                       <EditIcon />
                     </IconButton>
                     <IconButton color="error" onClick={() => handleDelete(product.id)}>
@@ -252,6 +288,16 @@ export default function Products() {
         newProduct={newProduct}
         onChange={handleInputChange}
         onSubmit={handleAddProduct}
+        formError={formError}
+        loading={loading}
+      />
+
+      <EditProductDialog
+        open={editDialogOpen}
+        onClose={() => setEditDialogOpen(false)}
+        product={editProduct}
+        onChange={handleEditChange}
+        onSubmit={handleUpdateProduct}
         formError={formError}
         loading={loading}
       />
