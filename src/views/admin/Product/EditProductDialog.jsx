@@ -141,11 +141,11 @@ export default function EditProductDialog({
         sx: {
           borderRadius: 1,
           bgcolor: '#f9f9f9',
-          height: 450,
+          height: 420,
         },
       }}
     >
-      <DialogTitle sx={{ fontWeight: 'bold', fontSize: '1.5rem', color: '#1976d2' }}>
+      <DialogTitle sx={{ fontWeight: 'bold', fontSize: '1.2rem', color: '#06923E' }}>
         Edit Product
       </DialogTitle>
 
@@ -217,7 +217,7 @@ export default function EditProductDialog({
               variant="outlined"
               component="label"
               startIcon={<PhotoCamera />}
-              sx={{ textTransform: 'none', bgcolor: 'white', borderRadius: 1, color: '#1976d2' }}
+              sx={{ textTransform: 'none', bgcolor: 'white', borderRadius: 1, color: '#06923E' }}
             >
               Change Image
               <input
@@ -265,7 +265,7 @@ export default function EditProductDialog({
         <Button onClick={onClose} color="inherit">
           Cancel
         </Button>
-        <Button onClick={onSubmit} disabled={loading} variant="contained" sx={{ backgroundColor: '#1976d2' }}>
+        <Button onClick={onSubmit} disabled={loading} variant="contained" sx={{ backgroundColor: '#06923E' }}>
           Update
         </Button>
       </DialogActions>

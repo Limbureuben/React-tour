@@ -180,6 +180,36 @@ export async function deleteProductAPI(productId) {
   return json;
 }
 
+// export async function updateProductAPI(productId, productData) {
+//   const formData = new FormData();
+//   formData.append('name', productData.name);
+//   formData.append('description', productData.description);
+//   formData.append('price', productData.price);
+//   formData.append('discount', productData.discount);
+//   formData.append('stock', productData.stock);
+
+//   if (productData.image instanceof File) {
+//     formData.append('image', productData.image);
+//   }
+
+//   formData.append('_method', 'PUT');
+
+//   const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
+//     method: 'POST', // or PUT/PATCH depending
+//     headers: {
+//       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+//     },
+//     body: formData,
+//   });
+
+//   if (!res.ok) {
+//     const err = await res.json();
+//     throw new Error(err.message || 'Failed to update product');
+//   }
+
+//   return await res.json();
+// }
+
 export async function updateProductAPI(productId, productData) {
   const formData = new FormData();
   formData.append('name', productData.name);
@@ -192,12 +222,13 @@ export async function updateProductAPI(productId, productData) {
     formData.append('image', productData.image);
   }
 
-  formData.append('_method', 'PUT');
+  formData.append('_method', 'PUT'); // simulate PUT request
 
   const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
-    method: 'POST', // or PUT/PATCH depending
+    method: 'POST',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      Accept: 'application/json',
     },
     body: formData,
   });
