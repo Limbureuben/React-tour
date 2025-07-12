@@ -221,10 +221,10 @@ function LandingPage() {
           }}
         >
           <Typography variant="h4" sx={{ fontWeight: 700, letterSpacing: 1 }}>
-            EXPLORE OUR PREMIUM BEDS
+            LUXURY BEDS FOR EVERY SLEEPER
           </Typography>
           <Typography variant="subtitle1" sx={{ mt: 1 }}>
-            Discover great deals, beautiful homes, and more!
+            Premium quality, unmatched comfort, delivered to your door.
           </Typography>
         </Box>
 
