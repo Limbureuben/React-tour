@@ -311,9 +311,6 @@ function LandingPage() {
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                       <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
                         Tsh {product.price}
-                        <Typography component="span" variant="body2" color="text.secondary">
-                          {' '}night
-                        </Typography>
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Star sx={{ color: '#06923E', fontSize: '1rem' }} />

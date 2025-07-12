@@ -26,14 +26,14 @@ function App() {
         <Route path='/admin' element={<AdminDashboard />}>
           <Route index element={<Home />} />
           <Route path='footer' element={<Footer />} />
-          <Route path='user-dashboard' element={<UserDashboard />} />
           <Route path='products' element={<Products />} />
         </Route>
 
         {/* User Routes */}
-        <Route path='/user' element={<UserDashboard />}>
-          <Route path='userhome' element={<UserHome />} />
-        </Route>
+        {/* <Route path='/user' element={<UserDashboard />}>
+        <Route index element={<UserHome /> } />
+        </Route> */}
+        <Route path='/user-dashboard' element={<UserDashboard /> } />
       </Routes>
     </BrowserRouter>
   )
