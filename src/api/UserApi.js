@@ -140,20 +140,19 @@ export async function fetchproductAPI(page = 1) {
 }
 
 export async function createProductAPI(productData) {
-
-  const formData  = new FormData();
+  const formData = new FormData();
   formData.append('name', productData.name);
   formData.append('description', productData.description);
   formData.append('price', productData.price);
   formData.append('discount', productData.discount);
   formData.append('stock', productData.stock);
-  formData.append('image', productData.image);
+  formData.append('image', productData.image); // this should be the File object
 
-  const res = await fetch(`${BASE_URL}/api/products`, {
+  const res = await fetch(`${BASE_URL}/api/add-products`, {
     method: 'POST',
-    headers: { 
+    headers: {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
-     },
+    },
     body: formData,
   });
 
@@ -163,5 +162,4 @@ export async function createProductAPI(productData) {
   }
 
   return await res.json();
-  
 }
