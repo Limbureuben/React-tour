@@ -210,7 +210,7 @@ function LandingPage() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ width: '100%', backgroundColor: '#f5f5f5', pb: 6 }}>
+      <Box sx={{ width: '100%', backgroundColor: '#f5f5f5', pb: 8 }}>
         {/* Hero Header */}
         <Box
           sx={{
