@@ -132,20 +132,6 @@ export default function RegisterProductDialog({
                 }}
                 />
             </Button>
-            {/* {newProduct.image && (
-              <Box
-                component="img"
-                src={newProduct.image}
-                alt="Preview"
-                sx={{
-                  width: 70,
-                  height: 70,
-                  objectFit: 'cover',
-                  borderRadius: 1,
-                  border: '1px solid #06923E',
-                }}
-              />
-            )} */}
           </Box>
 
           {formError && (
