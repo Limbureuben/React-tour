@@ -317,8 +317,14 @@ function LandingPage() {
                         <Typography variant="body2">{product.rating ?? 4.5}</Typography>
                       </Box>
                     </Box>
-                    <Typography variant="body1" sx={{ mt: 0.5 }}>{product.name}</Typography>
+                    <Typography
+                      variant="body2"
+                      sx={{ color: 'text.secondary' }}
+                    >
+                    {product.discount}% off
+                    </Typography>
                   </CardContent>
+                  
                 </Card>
               </Box>
             ))}

@@ -238,7 +238,7 @@ export default function Products() {
                 <TableRow key={product.id}>
                   <TableCell>{product.id}</TableCell>
                   <TableCell>{product.name}</TableCell>
-                  <TableCell>${product.price}</TableCell>
+                  <TableCell>Tsh {product.price}</TableCell>
                   <TableCell>{product.stock}</TableCell>
                   <TableCell>{product.discount}%</TableCell>
                   <TableCell>
@@ -313,17 +313,6 @@ export default function Products() {
           loading={loading}
         />
       )}
-
-
-      {/* <EditProductDialog
-        open={editDialogOpen}
-        onClose={() => setEditDialogOpen(false)}
-        product={editProduct}
-        onChange={handleEditChange}
-        onSubmit={handleUpdateProduct}
-        formError={formError}
-        loading={loading}
-      /> */}
     </Box>
   );
 }
