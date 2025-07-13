@@ -29,7 +29,10 @@ export async function fetchProductUser() {
     throw new Error(result.message);
   }
 
-  return result.products;
+  return {
+    products: result.products,
+    total: result.total,
+  };
 }
 
 

@@ -11,7 +11,7 @@ export async function userProductAPI() {
 
     const json = await res.json();
 
-    if (!res.ok || !json.success) {
+    if (!res.ok || json.success === false) {
         return {
         success: false,
         message: json.message || 'Failed to fetch products',
@@ -21,5 +21,6 @@ export async function userProductAPI() {
   return {
     success: true,
     products: json.products,
+    total: json.total,
   };
 }
