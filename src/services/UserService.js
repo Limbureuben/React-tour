@@ -1,4 +1,5 @@
 import { fetchUsersAPI, deleteUserAPI, createUserAPI } from '../api/UserApi'
+import { userProductAPI } from '../api/ProductAPI'
 
 // export async function fetchUsers() {
 //   const result = await fetchUsersAPI();
@@ -19,6 +20,19 @@ export async function fetchUsers(page = 1) {
 
   return result.Users;  // return full object with pagination info
 }
+
+
+export async function fetchProductUser() {
+  const result = await userProductAPI();
+
+  if (!result.success) {
+    throw new Error(result.message);
+  }
+
+  return result.products;
+}
+
+
 
 
 
