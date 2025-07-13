@@ -1,15 +1,3 @@
-// import React from 'react'
-
-// export default function UserHome() {
-//   return (
-//     <div>UserHome</div>
-//   )
-// }
-
-
-
-
-// src/components/UserDashboard.jsx
 import React, { useEffect, useState } from 'react';
 import {
   Box, Card, CardContent, CardMedia,
@@ -34,7 +22,7 @@ function UserHome() {
     loadProducts();
   }, []);
 
-  const productGroups = chunkArray(products, 10); // 10 per card (5x2 layout)
+  const productGroups = chunkArray(products, 10);
 
   return (
     <Container sx={{ py: 4 }}>
