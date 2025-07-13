@@ -4,6 +4,7 @@ import {
   Typography, Grid, Container
 } from '@mui/material';
 import { fetchProductUser } from '../../services/UserService'
+import UserHeader from './UserHeader';
 
 const chunkArray = (array, size) => {
   return Array.from({ length: Math.ceil(array.length / size) }, (_, i) =>
@@ -25,11 +26,9 @@ function UserHome() {
   const productGroups = chunkArray(products, 10);
 
   return (
+    <div>
+      <UserHeader />
     <Container sx={{ py: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        All Products
-      </Typography>
-
       {productGroups.map((group, groupIndex) => (
         <Card key={groupIndex} sx={{ mb: 4, p: 2 }}>
           <CardContent>
@@ -67,6 +66,7 @@ function UserHome() {
         </Card>
       ))}
     </Container>
+    </div>
   );
 }
 

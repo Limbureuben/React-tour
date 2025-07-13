@@ -319,7 +319,7 @@ function LandingPage() {
                     </Box>
                     <Typography
                       variant="body2"
-                      sx={{ color: 'text.secondary' }}
+                      sx={{ color: 'red', fontWeight: 'bold' }}
                     >
                     {product.discount}% off
                     </Typography>
