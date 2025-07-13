@@ -100,7 +100,7 @@ function UserHome() {
   };
 
   return (
-    <Box sx={{ pt: 10 }}>
+    <Box sx={{ pt: 1 }}>
       <UserHeader />
 
       <Box sx={{ width: '100%', overflow: 'hidden', mt: 10, px: 3 }}>
@@ -108,7 +108,7 @@ function UserHome() {
           sx={{
             display: 'flex',
             width: '100%',
-            transform: 'translateX(0%)', // removed animation
+            transform: 'translateX(0%)',
           }}
           ref={slideRef}
         >
@@ -150,7 +150,7 @@ function UserHome() {
 
                 <CardMedia
                   component="img"
-                  height="200"
+                  height="100"
                   image={product.image}
                   alt={product.name}
                   sx={{ borderRadius: 2 }}
