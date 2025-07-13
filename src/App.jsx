@@ -34,6 +34,7 @@ function App() {
         <Route index element={<UserHome /> } />
         </Route> */}
         <Route path='/user-dashboard' element={<UserDashboard /> } />
+        <Route path='/user-home' element={<UserHome />} />
       </Routes>
     </BrowserRouter>
   )
