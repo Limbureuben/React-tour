@@ -9,12 +9,12 @@ export async function userProductAPI() {
         },
     });
 
-    const json = res.json();
+    const json = await res.json();
 
     if (!res.ok || !json.success) {
         return {
         success: false,
-        message: json.message || 'Failed to fetch users',
+        message: json.message || 'Failed to fetch products',
         };
     }
 
