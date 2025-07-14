@@ -1,75 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import {
-//   Box, Card, CardContent, CardMedia,
-//   Typography, Grid
-// } from '@mui/material';
-// import { fetchProductUser } from '../../services/UserService';
-// import UserHeader from './UserHeader';
-
-// const chunkArray = (array, size) => {
-//   return Array.from({ length: Math.ceil(array.length / size) }, (_, i) =>
-//     array.slice(i * size, i * size + size)
-//   );
-// };
-
-// function UserHome() {
-//   const [products, setProducts] = useState([]);
-
-//   useEffect(() => {
-//     async function loadProducts() {
-//       const { products } = await fetchProductUser();
-//       setProducts(products);
-//     }
-//     loadProducts();
-//   }, []);
-
-//   const productGroups = chunkArray(products, 10);
-
-//   return (
-//     <Box sx={{ pt: 10, px: 8, pb: 8 }}>
-//       <UserHeader />
-//       {productGroups.map((group, groupIndex) => (
-//         <Grid container spacing={2} columns={10} key={groupIndex} sx={{ mb: 3 }}>
-//           {group.map((product, index) => (
-//             <Grid item xs={1} key={index} sx={{ py: 2 }}>
-//               <Card sx={{ height: '100%', maxHeight: 260, display: 'flex', flexDirection: 'column' }}>
-//                 <CardMedia
-//                   component="img"
-//                   height="140"
-//                   image={product.image}
-//                   alt={product.name}
-//                 />
-//                 <CardContent sx={{ p: 1, flexGrow: 1 }}>
-//                   <Typography variant="body2" fontWeight="bold" noWrap>
-//                     {product.name}
-//                   </Typography>
-//                   <Typography variant="caption" sx={{ display: 'block' }}>
-//                     Tsh {product.price}
-//                   </Typography>
-//                   {product.discount > 0 && (
-//                     <Typography
-//                       variant="caption"
-//                       sx={{ color: 'red', fontWeight: 'bold' }}
-//                     >
-//                       {product.discount}% off
-//                     </Typography>
-//                   )}
-//                 </CardContent>
-//               </Card>
-//             </Grid>
-//           ))}
-//         </Grid>
-
-//       ))}
-//     </Box>
-//   );
-// }
-
-// export default UserHome;
-
-
-
-
 import React, { useEffect, useState, useRef } from 'react';
 import {
   Box, Card, CardContent, CardMedia, Typography, IconButton
@@ -103,7 +31,7 @@ function UserHome() {
     <Box sx={{ pt: 1 }}>
       <UserHeader />
 
-      <Box sx={{ width: '100%', overflow: 'hidden', mt: 10, px: 3 }}>
+      <Box sx={{ width: '100%', overflowY: 'visible', mt: 10, px: 3 }}>
         <Box
           sx={{
             display: 'flex',
@@ -124,12 +52,13 @@ function UserHome() {
               }}
             >
               <Card
-                elevation={1}
+                elevation={0}
                 sx={{
                   position: 'relative',
                   width: '100%',
                   maxWidth: 250,
                   height: '100%',
+                  boxShadow: 'rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px',
                 }}
               >
                 <IconButton
@@ -150,11 +79,16 @@ function UserHome() {
 
                 <CardMedia
                   component="img"
-                  height="100"
                   image={product.image}
                   alt={product.name}
-                  sx={{ borderRadius: 2 }}
+                  sx={{
+                    height: 160,
+                    width: '100%',
+                    objectFit: 'cover',
+                    borderRadius: 1,
+                  }}
                 />
+
 
                 <CardContent sx={{ p: 1 }}>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -172,7 +106,7 @@ function UserHome() {
                   {product.discount > 0 && (
                     <Typography
                       variant="body2"
-                      sx={{ color: 'red', fontWeight: 'bold' }}
+                      sx={{ color: 'red', textDecoration: 'line-through', fontWeight: 'bold' }}
                     >
                       {product.discount}% off
                     </Typography>

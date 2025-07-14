@@ -70,7 +70,7 @@ export default function UserHeader() {
           }}
         >
           <MenuItem onClick={handleClose}>My Profile</MenuItem>
-          <MenuItem onClick={handleClose}>Settings</MenuItem>
+          <MenuItem onClick={handleClose}>Favorite</MenuItem>
           <MenuItem onClick={handleClose}>Orders</MenuItem>
           <MenuItem onClick={handleClose}>Logout</MenuItem>
         </Menu>

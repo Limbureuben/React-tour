@@ -46,8 +46,7 @@ export default function useLoginRegistrationForm() {
           console.log("Navigating to /admin-dashboard");
           navigate("/admin");
         } else if (result.user.role === "user") {
-          console.log("Navigating to /user-dashboard");
-          navigate("/user-dashboard");
+          navigate("/user-home");
         } else {
           navigate("/");
         }
