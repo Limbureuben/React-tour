@@ -1,5 +1,5 @@
 import { fetchproductAPI,  createProductAPI, deleteProductAPI, updateProductAPI } from "../api/UserApi";
-import { RatingAPI } from '../api/ProductAPI'
+import { RatingAPI, toggleFavoriteAPI } from '../api/ProductAPI'
 
 
 export async function fetchProducts(page = 1) {
@@ -53,3 +53,19 @@ export async function rateProduct(productId, rating) {
     throw new Error(error.message || 'Failed to submit rating');
   }
 }
+
+
+export async function toggleFavorite(productId) {
+  try {
+    const result = await toggleFavoriteAPI(productId);
+
+    if (!result.success) {
+      throw new Error(result.message);
+    }
+
+    return result;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to update favorite');
+  }
+}
+

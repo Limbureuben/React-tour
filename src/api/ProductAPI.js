@@ -52,3 +52,29 @@ export async function RatingAPI(productId, rating){
     message: json.message || 'Rating submitted successfully',
   };
 }
+
+
+export async function toggleFavoriteAPI(productId) {
+  const res = await fetch(`${BASE_URL}/api/favorite`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+    },
+    body: JSON.stringify({ product_id: productId }),
+  });
+
+  const json = await res.json();
+
+  if (!res.ok || json.success === false) {
+    return {
+      success: false,
+      message: json.message || 'Failed to update favorite',
+    };
+  }
+
+  return {
+    success: true,
+    message: json.message || 'Favorite updated successfully',
+  };
+}
