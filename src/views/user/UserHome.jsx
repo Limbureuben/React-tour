@@ -263,9 +263,10 @@
 import React, { useEffect, useState } from 'react';
 import {
   Box, Card, CardContent, CardMedia, Typography,
-  IconButton, Pagination
+  IconButton, Pagination, Dialog, DialogTitle, DialogContent, DialogActions, Button
 } from '@mui/material';
 import { Favorite, FavoriteBorder, Star } from '@mui/icons-material';
+import StarRating from '../admin/Product/StarRating'
 import { fetchProductUser } from '../../services/UserService';
 import UserHeader from './UserHeader';
 
@@ -275,6 +276,8 @@ function UserHome() {
   const [products, setProducts] = useState([]);
   const [likedProperties, setLikedProperties] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [openRatingDialog, setOpenRatingDialog] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     async function loadProducts() {
@@ -292,11 +295,20 @@ function UserHome() {
     );
   };
 
+  const openDialog = (product) => {
+    setSelectedProduct(product);
+    setOpenRatingDialog(true);
+  };
+
+  const closeDialog = () => {
+    setOpenRatingDialog(false);
+    setSelectedProduct(null);
+  };
+
   const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
   const currentProducts = products.slice(startIndex, startIndex + PRODUCTS_PER_PAGE);
 
-  // Split 10 products into 2 rows of 5
   const rows = [currentProducts.slice(0, 5), currentProducts.slice(5, 10)];
 
   return (
@@ -363,14 +375,18 @@ function UserHome() {
                   />
 
                   <CardContent sx={{ p: 1 }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
                         Tsh {product.price}
                       </Typography>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Star sx={{ color: '#06923E', fontSize: '1rem' }} />
+
+                      <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => openDialog(product)}>
+                        <Star sx={{ color: '#06923E', fontSize: '1rem', mr: 0.5 }} />
                         <Typography variant="body2">
-                          {product.average_rating }
+                          {product.average_rating?.toFixed(1) ?? '0.0'}
+                        </Typography>
+                        <Typography variant="body2" sx={{ ml: 1, color: '#06923E', fontWeight: 'bold' }}>
+                          (Rate)
                         </Typography>
                       </Box>
                     </Box>
@@ -404,6 +420,22 @@ function UserHome() {
           />
         </Box>
       </Box>
+
+      {/* Rating Dialog */}
+      <Dialog open={openRatingDialog} onClose={closeDialog}>
+        <DialogTitle>Rate {selectedProduct?.name}</DialogTitle>
+        <DialogContent>
+          {selectedProduct && (
+            <StarRating
+              productId={selectedProduct.id}
+              initialRating={selectedProduct.average_rating}
+            />
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeDialog} color="primary">Close</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

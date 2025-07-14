@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import { Typography, Box } from '@mui/material';
 import { rateProduct } from '../../../services/ProductService';
+import { toast } from 'react-toastify';
 
 export default function StarRating({ productId, initialRating }) {
   const [value, setValue] = useState(initialRating || 0);
@@ -12,9 +13,9 @@ export default function StarRating({ productId, initialRating }) {
     setLoading(true);
     try {
       await rateProduct(productId, newValue);
-      // Optionally, show toast here
+      toast.success('Thanks for your rating!');
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message || 'Failed to rate product');
     } finally {
       setLoading(false);
     }
