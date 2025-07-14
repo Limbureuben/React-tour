@@ -24,3 +24,31 @@ export async function userProductAPI() {
     total: json.total,
   };
 }
+
+export async function RatingAPI(productId, rating){
+  const res = await fetch(`${BASE_URL}/api/rating`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // your token key
+    },
+    body: JSON.stringify({
+      product_id: productId,
+      rating,
+    }),
+  });
+
+  const json = await res.json();
+
+  if (!res.ok || json.success === false) {
+    return {
+      success: false,
+      message: json.message || 'Failed to submit rating',
+    };
+  }
+
+  return {
+    success: true,
+    message: json.message || 'Rating submitted successfully',
+  };
+}

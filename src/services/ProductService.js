@@ -1,4 +1,5 @@
 import { fetchproductAPI,  createProductAPI, deleteProductAPI, updateProductAPI } from "../api/UserApi";
+import { RatingAPI } from '../api/ProductAPI'
 
 
 export async function fetchProducts(page = 1) {
@@ -37,4 +38,18 @@ export async function updateProduct(id, productData) {
     } catch(err) {
         throw new Error(err.message || 'Failed to edit the product')
     }
+}
+
+export async function rateProduct(productId, rating) {
+  try {
+    const response = await RatingAPI(productId, rating);
+
+    if (!response.success) {
+      throw new Error(response.message);
+    }
+
+    return response;
+  } catch (error) {
+    throw new Error(error.message || 'Failed to submit rating');
+  }
 }
