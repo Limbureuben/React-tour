@@ -36,6 +36,8 @@ export default function useLoginRegistrationForm() {
         localStorage.setItem("authToken", result.token);
         localStorage.setItem("user", JSON.stringify(result.user));
         toast.success("Login successful!");
+        console.log("Stored Token:", localStorage.getItem("authToken"));
+        console.log("Stored User:", localStorage.getItem("user"));
 
         if (onClose) {
         console.log("Closing modal");
