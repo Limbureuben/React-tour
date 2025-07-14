@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import { Typography, Box } from '@mui/material';
-import { rateProduct } from '../services/RatingService';
+import { rateProduct } from '../../../services/ProductService';
 
 export default function StarRating({ productId, initialRating }) {
   const [value, setValue] = useState(initialRating || 0);
