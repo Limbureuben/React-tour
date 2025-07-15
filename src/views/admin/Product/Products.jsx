@@ -48,6 +48,7 @@ export default function Products() {
     setLoading(true);
     fetchProducts(pagination.page)
       .then((res) => {
+        // setProducts(res.data);
         setProducts(res.data);
         setFilteredProducts(res.data);
         setPagination({
@@ -141,11 +142,6 @@ export default function Products() {
       });
     }
 
-    // const handleEdit = (product) => {
-    //   setNewProduct(product);
-    //   setOpenDialog(true);
-    // }
-
     const handleEditClick = (product) => {
       setEditProduct({ ...product });
       setFormError('');
@@ -235,8 +231,8 @@ export default function Products() {
             </TableHead>
             <TableBody>
               {filteredProducts.map((product) => (
-                <TableRow key={product.id}>
-                  <TableCell>{product.id}</TableCell>
+                <TableRow key={product._id}>
+                  <TableCell>{product._id}</TableCell>
                   <TableCell>{product.name}</TableCell>
                   <TableCell>Tsh {product.price}</TableCell>
                   <TableCell>{product.stock}</TableCell>
