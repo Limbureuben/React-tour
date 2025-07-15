@@ -248,6 +248,7 @@ export default function Products() {
                     <IconButton color="primary" size='small' onClick={() => handleEditClick(product)}>
                       <EditIcon />
                     </IconButton>
+                    {/* use _id for node */}
                     <IconButton color="error" onClick={() => handleDelete(product.id)}>
                       <DeleteIcon />
                     </IconButton>

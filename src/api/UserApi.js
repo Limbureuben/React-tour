@@ -170,7 +170,8 @@ export async function createProductAPI(productData) {
 
 
 export async function deleteProductAPI(productId) {
-  const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
+  const res = await fetch(`${BASE_URL}/api/product/delete/${productId}`, {
+  // const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
