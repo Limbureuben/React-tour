@@ -118,7 +118,8 @@ export async function createUserAPI(data) {
 
 
 export async function fetchproductAPI(page = 1) {
-  const res = await fetch(`${BASE_URL}/api/products?page=${page}`, {
+  const res = await fetch(`${BASE_URL}/api/products/get-product?page=${page}`, {
+  // const res = await fetch(`${BASE_URL}/api/products?page=${page}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
