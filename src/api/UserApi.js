@@ -1,10 +1,10 @@
-// const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'http://localhost:4000';
 
-const BASE_URL = 'http://localhost:8000';
+// const BASE_URL = 'http://localhost:8000';
 
 export async function registerUser(data) {
-  // const res = await fetch(`${BASE_URL}/api/auth/register`, {
-  const res = await fetch(`${BASE_URL}/api/register`, {
+  const res = await fetch(`${BASE_URL}/api/auth/register`, {
+  // const res = await fetch(`${BASE_URL}/api/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -19,8 +19,8 @@ export async function registerUser(data) {
 
 
 export async function loginUser(data) {
-  // const res = await fetch(`${BASE_URL}/api/auth/login`, {
-  const res = await fetch(`${BASE_URL}/api/login`, {
+  const res = await fetch(`${BASE_URL}/api/auth/login`, {
+  // const res = await fetch(`${BASE_URL}/api/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -44,7 +44,8 @@ export async function loginUser(data) {
 
 
 export async function fetchUsersAPI(page = 1) {
-  const res = await fetch(`${BASE_URL}/api/users?page=${page}`, {
+  const res = await fetch(`${BASE_URL}/api/auth/users?page=${page}`, {
+  // const res = await fetch(`${BASE_URL}/api/users?page=${page}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -70,7 +71,8 @@ export async function fetchUsersAPI(page = 1) {
 
 
 export async function deleteUserAPI(userId) {
-  const res = await fetch(`${BASE_URL}/api/users/${userId}`, {
+    const res = await fetch(`${BASE_URL}/api/auth/users/${userId}`, {
+  // const res = await fetch(`${BASE_URL}/api/users/${userId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
