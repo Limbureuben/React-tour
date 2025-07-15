@@ -150,7 +150,7 @@ export async function createProductAPI(productData) {
   formData.append('stock', productData.stock);
   formData.append('image', productData.image); // this should be the File object
 
-  const res = await fetch(`${BASE_URL}/api/ProductRoute/register-product`, {
+  const res = await fetch(`${BASE_URL}/api/product/register`, {
   // const res = await fetch(`${BASE_URL}/api/add-products`, {
     method: 'POST',
     headers: {
