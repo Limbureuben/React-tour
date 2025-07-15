@@ -118,7 +118,7 @@ export async function createUserAPI(data) {
 
 
 export async function fetchproductAPI(page = 1) {
-  const res = await fetch(`${BASE_URL}/api/products/get-product?page=${page}`, {
+  const res = await fetch(`${BASE_URL}/api/product/get-product?page=${page}`, {
   // const res = await fetch(`${BASE_URL}/api/products?page=${page}`, {
     method: 'GET',
     headers: {
@@ -149,7 +149,7 @@ export async function createProductAPI(productData) {
   formData.append('price', productData.price);
   formData.append('discount', productData.discount);
   formData.append('stock', productData.stock);
-  formData.append('image', productData.image); // this should be the File object
+  formData.append('image', productData.image);
 
   const res = await fetch(`${BASE_URL}/api/product/register-product`, {
   // const res = await fetch(`${BASE_URL}/api/add-products`, {
