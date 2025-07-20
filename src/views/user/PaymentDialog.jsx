@@ -63,7 +63,7 @@ export default function PaymentDialog({ open, onClose, product }) {
               textAlign: 'center',
               cursor: 'pointer',
               '&:hover': { backgroundColor: '#f5f5f5' },
-              width: 80,
+              width: 110,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
