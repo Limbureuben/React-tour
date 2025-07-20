@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import {
   Dialog, DialogTitle, DialogContent, DialogActions,
-  Button, Typography, Box, Grid, TextField
+  Button, Typography, Box, Grid, TextField, Divider
 } from '@mui/material';
 
 const providers = [
-  { name: 'Tigo Pesa', logo: '/public/assets/images/yas.png', type: 'mobile' },
-  { name: 'Airtel Money', logo: '/public/assets/images/airtel.png', type: 'mobile' },
-  { name: 'Halotel Money', logo: '/public/assets/images/halotel.jpeg', type: 'mobile' },
-  { name: 'Vodacom M-Pesa', logo: '/public/assets/images/voda.png', type: 'mobile' },
-  { name: 'CRDB Bank', logo: '/public/assets/images/crdb.jpeg', type: 'bank' },
-  { name: 'NMB Bank', logo: '/public/assets/images/nmb.png', type: 'bank' },
+  { name: 'Yas', logo: '/assets/images/yas.png', type: 'mobile' },
+  { name: 'Airtel', logo: '/assets/images/airtel.png', type: 'mobile' },
+  { name: 'Halotel', logo: '/assets/images/halotel.jpeg', type: 'mobile' },
+  { name: 'Vodacom', logo: '/assets/images/voda.png', type: 'mobile' },
 ];
 
 export default function PaymentDialog({ open, onClose, product }) {
@@ -34,7 +32,6 @@ export default function PaymentDialog({ open, onClose, product }) {
   };
 
   const handlePayment = () => {
-    // Send to backend here
     console.log('Processing payment...', {
       product,
       provider: selectedProvider,
@@ -47,6 +44,40 @@ export default function PaymentDialog({ open, onClose, product }) {
     onClose();
   };
 
+  // Handle Cancel button on form to return to provider selection
+  const handleFormCancel = () => {
+    setStep(1);
+    setSelectedProvider(null);
+    setFormData({ username: '', email: '', phone: '' });
+  };
+
+  const renderProviderGrid = () => (
+    <Grid container spacing={2} mt={1}>
+      {providers.map((p, index) => (
+        <Grid item xs={6} sm={4} key={index} sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Box
+            onClick={() => handleSelectProvider(p)}
+            sx={{
+              borderRadius: 2,
+              padding: 1.5,
+              textAlign: 'center',
+              cursor: 'pointer',
+              '&:hover': { backgroundColor: '#f5f5f5' },
+              width: 80,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 1
+            }}
+          >
+            <img src={p.logo} alt={p.name} style={{ width: 50, height: 50, objectFit: 'contain' }} />
+            <Typography variant="body2" mt={1}>{p.name}</Typography>
+          </Box>
+        </Grid>
+      ))}
+    </Grid>
+  );
+
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>Payment for {product.name}</DialogTitle>
@@ -58,39 +89,33 @@ export default function PaymentDialog({ open, onClose, product }) {
 
         {step === 1 && (
           <>
-            <Typography>Select your service provider:</Typography>
-            <Grid container spacing={2} mt={1}>
-              {providers.map((p, index) => (
-                <Grid item xs={6} sm={4} key={index}>
-                  <Box
-                    onClick={() => handleSelectProvider(p)}
-                    sx={{
-                      border: '1px solid #ccc',
-                      borderRadius: 2,
-                      padding: 1,
-                      textAlign: 'center',
-                      cursor: 'pointer',
-                      '&:hover': { backgroundColor: '#f0f0f0' }
-                    }}
-                  >
-                    <img src={p.logo} alt={p.name} width="50" height="50" />
-                    <Typography variant="body2">{p.name}</Typography>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
+            <Typography variant="subtitle1" mt={2}>Pay via Mobile phone</Typography>
+            {renderProviderGrid()}
+            <Divider sx={{ my: 3 }} />
           </>
         )}
 
-        {step === 2 && (
+        {step === 2 && selectedProvider && (
           <>
-            <Typography variant="h6" mt={2}>Provider: {selectedProvider.name}</Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+              <img
+                src={selectedProvider.logo}
+                alt={selectedProvider.name}
+                style={{ width: 80, height: 80, objectFit: 'contain' }}
+              />
+            </Box>
+
+            <Typography variant="h6" align="center" gutterBottom>
+              {selectedProvider.name} Payment Details
+            </Typography>
+
             <Box mt={2}>
               <TextField
                 fullWidth
                 label="Username"
                 name="username"
                 margin="dense"
+                value={formData.username}
                 onChange={handleInputChange}
               />
               <TextField
@@ -99,6 +124,7 @@ export default function PaymentDialog({ open, onClose, product }) {
                 name="email"
                 margin="dense"
                 type="email"
+                value={formData.email}
                 onChange={handleInputChange}
               />
               <TextField
@@ -106,11 +132,15 @@ export default function PaymentDialog({ open, onClose, product }) {
                 label="Phone Number"
                 name="phone"
                 margin="dense"
+                value={formData.phone}
                 onChange={handleInputChange}
               />
             </Box>
-            <Box mt={3}>
-              <Button variant="contained" color="primary" fullWidth onClick={handlePayment}>
+            <Box mt={3} display="flex" gap={2}>
+              <Button variant="outlined" color="secondary" onClick={handleFormCancel} fullWidth>
+                Cancel
+              </Button>
+              <Button variant="contained" color="primary" onClick={handlePayment} fullWidth>
                 Pay Tsh {product.price}
               </Button>
             </Box>
@@ -118,9 +148,12 @@ export default function PaymentDialog({ open, onClose, product }) {
         )}
       </DialogContent>
 
-      <DialogActions>
-        <Button onClick={onClose} color="secondary">Cancel</Button>
-      </DialogActions>
+      {/* Only show this Cancel button on the provider selection page */}
+      {step === 1 && (
+        <DialogActions>
+          <Button onClick={onClose} color="secondary">Close</Button>
+        </DialogActions>
+      )}
     </Dialog>
   );
 }
