@@ -78,3 +78,31 @@ export async function toggleFavoriteAPI(productId) {
     message: json.message || 'Favorite updated successfully',
   };
 }
+
+
+
+export async function paymentAPI(paymentData) {
+  const res = await fetch(`${BASE_URL}/api/payment`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+    },
+    body: JSON.stringify(paymentData),
+  });
+
+  const json = await res.json();
+
+  if(!res.ok || json.success === false) {
+    return {
+      success: false,
+      message: json.message || 'Payment failed'
+    }
+  }
+
+  return {
+    success: true,
+    message: json.message || 'Payment processed successfully',
+    transactionId: json.transactionId
+  }
+}

@@ -3,6 +3,7 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   Button, Typography, Box, Grid, TextField, Divider
 } from '@mui/material';
+import { createPayment } from '../../services/ProductService'
 
 const providers = [
   { name: 'Yas', logo: '/assets/images/yas.png', type: 'mobile' },
@@ -17,7 +18,7 @@ export default function PaymentDialog({ open, onClose, product }) {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    phone: ''
+    phone: '+255'
   });
 
   if (!product) return null;
@@ -27,21 +28,34 @@ export default function PaymentDialog({ open, onClose, product }) {
     setStep(2);
   };
 
-  const handleInputChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'phone') {
+            // Force prefix +255 if user deletes it
+            if (!value.startsWith('+255')) {
+            setFormData(prev => ({ ...prev, phone: '+255' }));
+            return;
+            }
+        }
+        setFormData(prev => ({ ...prev, [name]: value }));
+        };
+
 
   const handlePayment = () => {
-    console.log('Processing payment...', {
-      product,
-      provider: selectedProvider,
-      formData
-    });
+    try {
+        const response = createPayment({
+            productId: product.id,
+            provider: selectedProvider.name,
+            ...formData
+        });
+        console.log('Payment success:', response);
 
-    // Reset & close
-    setStep(1);
-    setSelectedProvider(null);
-    onClose();
+        setStep(1);
+        setSelectedProvider(null);
+        onClose();
+    } catch (error) {
+        alert('Payment failed: ' + error.message);
+    }
   };
 
   // Handle Cancel button on form to return to provider selection
@@ -153,7 +167,7 @@ export default function PaymentDialog({ open, onClose, product }) {
               <Button variant="outlined" color="secondary" onClick={handleFormCancel} fullWidth>
                 Cancel
               </Button>
-              <Button variant="contained" color="primary" onClick={handlePayment} fullWidth>
+              <Button variant="contained" sx={{ backgroundColor: '#06923E'}} onClick={handlePayment} fullWidth>
                 Pay Tsh {product.price}
               </Button>
             </Box>
