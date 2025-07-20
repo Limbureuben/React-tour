@@ -1,4 +1,5 @@
 const BASE_URL = 'http://localhost:8000';
+// const BASE_URL = 'https://2749c4e783cc.ngrok-free.app'
 
 export async function userProductAPI() {
     const res = await fetch(`${BASE_URL}/api/user-product`, {
