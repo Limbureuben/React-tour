@@ -1,10 +1,10 @@
-const BASE_URL = 'http://localhost:4000';
+// const BASE_URL = 'http://localhost:4000';
 
-// const BASE_URL = 'http://localhost:8000';
+const BASE_URL = 'http://localhost:8000';
 
 export async function registerUser(data) {
-  const res = await fetch(`${BASE_URL}/api/auth/register`, {
-  // const res = await fetch(`${BASE_URL}/api/register`, {
+  // const res = await fetch(`${BASE_URL}/api/auth/register`, {
+  const res = await fetch(`${BASE_URL}/api/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -19,8 +19,8 @@ export async function registerUser(data) {
 
 
 export async function loginUser(data) {
-  const res = await fetch(`${BASE_URL}/api/auth/login`, {
-  // const res = await fetch(`${BASE_URL}/api/login`, {
+  // const res = await fetch(`${BASE_URL}/api/auth/login`, {
+  const res = await fetch(`${BASE_URL}/api/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
@@ -44,8 +44,8 @@ export async function loginUser(data) {
 
 
 export async function fetchUsersAPI(page = 1) {
-  const res = await fetch(`${BASE_URL}/api/auth/users?page=${page}`, {
-  // const res = await fetch(`${BASE_URL}/api/users?page=${page}`, {
+  // const res = await fetch(`${BASE_URL}/api/auth/users?page=${page}`, {
+  const res = await fetch(`${BASE_URL}/api/users?page=${page}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -71,8 +71,8 @@ export async function fetchUsersAPI(page = 1) {
 
 
 export async function deleteUserAPI(userId) {
-    const res = await fetch(`${BASE_URL}/api/auth/users/${userId}`, {
-  // const res = await fetch(`${BASE_URL}/api/users/${userId}`, {
+    // const res = await fetch(`${BASE_URL}/api/auth/users/${userId}`, {
+  const res = await fetch(`${BASE_URL}/api/users/${userId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -118,8 +118,8 @@ export async function createUserAPI(data) {
 
 
 export async function fetchproductAPI(page = 1) {
-  const res = await fetch(`${BASE_URL}/api/product/get-product?page=${page}`, {
-  // const res = await fetch(`${BASE_URL}/api/products?page=${page}`, {
+  // const res = await fetch(`${BASE_URL}/api/product/get-product?page=${page}`, {
+  const res = await fetch(`${BASE_URL}/api/products?page=${page}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -151,8 +151,8 @@ export async function createProductAPI(productData) {
   formData.append('stock', productData.stock);
   formData.append('image', productData.image);
 
-  const res = await fetch(`${BASE_URL}/api/product/register-product`, {
-  // const res = await fetch(`${BASE_URL}/api/add-products`, {
+  // const res = await fetch(`${BASE_URL}/api/product/register-product`, {
+  const res = await fetch(`${BASE_URL}/api/add-products`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
@@ -170,8 +170,8 @@ export async function createProductAPI(productData) {
 
 
 export async function deleteProductAPI(productId) {
-  const res = await fetch(`${BASE_URL}/api/product/delete/${productId}`, {
-  // const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
+  // const res = await fetch(`${BASE_URL}/api/product/delete/${productId}`, {
+  const res = await fetch(`${BASE_URL}/api/products/${productId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('authToken')}`,
