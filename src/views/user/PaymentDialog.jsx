@@ -139,23 +139,6 @@ export default function PaymentDialog({ open, onClose, product }) {
             <Box mt={2}>
               <TextField
                 fullWidth
-                label="Username"
-                name="username"
-                margin="dense"
-                value={formData.username}
-                onChange={handleInputChange}
-              />
-              <TextField
-                fullWidth
-                label="Email"
-                name="email"
-                margin="dense"
-                type="email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-              <TextField
-                fullWidth
                 label="Phone Number"
                 name="phone"
                 margin="dense"
