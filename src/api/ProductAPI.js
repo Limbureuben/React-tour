@@ -82,7 +82,7 @@ export async function toggleFavoriteAPI(productId) {
 
 
 export async function paymentAPI(paymentData) {
-  const res = await fetch(`${BASE_URL}/api/payment`, {
+  const res = await fetch(`${BASE_URL}/api/submit-payment`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
