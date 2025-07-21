@@ -1,5 +1,4 @@
 // const BASE_URL = 'http://localhost:4000';
-// const BASE_URL = 'https://2749c4e783cc.ngrok-free.app'
 const BASE_URL = 'http://localhost:8000';
 
 export async function registerUser(data) {
