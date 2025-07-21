@@ -153,7 +153,7 @@ function UserHome() {
                           fontWeight: 'bold'
                         }}
                       >
-                        {product.discount}% off
+                        -{product.discount}% off
                       </Typography>
                     )}
                   </CardContent>

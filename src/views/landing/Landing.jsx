@@ -319,9 +319,13 @@ function LandingPage() {
                     </Box>
                     <Typography
                       variant="body2"
-                      sx={{ color: 'red', fontWeight: 'bold' }}
+                      sx={{ 
+                        color: 'red', 
+                        fontWeight: 'bold',
+                        textDecoration: 'line-through',
+                       }}
                     >
-                    {product.discount}% off
+                    -{product.discount}% off
                     </Typography>
                   </CardContent>
                   
