@@ -1,4 +1,5 @@
 const BASE_URL = 'http://localhost:8000';
+const URL = 'https://99d96fe7aa16.ngrok-free.app';
 
 
 export async function userProductAPI() {
@@ -83,7 +84,7 @@ export async function toggleFavoriteAPI(productId) {
 
 
 export async function paymentAPI(paymentData) {
-  const res = await fetch(`${BASE_URL}/api/submit-payment`, {
+  const res = await fetch(`${URL}/api/submit-payment`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

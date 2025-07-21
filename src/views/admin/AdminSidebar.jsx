@@ -1,5 +1,7 @@
 import React from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar } from '@mui/material';
+import {
+  Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar,
+} from '@mui/material';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -13,6 +15,7 @@ import { toast } from 'react-toastify';
 
 const Sidebar = () => {
   const navigate = useNavigate();
+
   const menuItems = [
     { label: 'Dashboard', icon: <DashboardIcon />, path: '/admin' },
     { label: 'Products', icon: <ShoppingCartIcon />, path: '/admin/products' },
@@ -20,16 +23,18 @@ const Sidebar = () => {
     { label: 'Customers', icon: <PeopleIcon />, path: '/admin/customers' },
     { label: 'Inventory', icon: <InventoryIcon />, path: '/admin/inventory' },
     { label: 'Reports', icon: <AssessmentIcon />, path: '/admin/reports' },
-    {
-    label: 'Logout',
-    icon: <LogoutIcon />,
-    onClick: () => {
-      localStorage.removeItem('authToken');
-      toast.success('Logged out successfully!');
-      navigate('/login');                 // Redirect to login page
-    },
-  },
   ];
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    toast.success('Logged out successfully!', {
+      autoClose: 1000,
+    });
+
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
+  };
 
   return (
     <Drawer
@@ -59,6 +64,16 @@ const Sidebar = () => {
             </ListItem>
           </NavLink>
         ))}
+
+        {/* Logout Button */}
+        <ListItem
+          button
+          onClick={handleLogout}
+          sx={{ cursor: 'pointer', color: 'error.main' }}
+        >
+          <ListItemIcon><LogoutIcon color="error" /></ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
       </List>
     </Drawer>
   );
