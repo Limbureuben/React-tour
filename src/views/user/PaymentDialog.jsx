@@ -176,7 +176,8 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   Button, TextField, Typography, CircularProgress, Box
 } from '@mui/material';
-import axios from 'axios';
+// import { payForProduct } from '../services/paymentService'; // adjust path if needed
+import { payForProduct } from '../../services/ProductService'
 
 const PaymentDialog = ({ open, onClose, product }) => {
   const [phone, setPhone] = useState('');
@@ -186,29 +187,22 @@ const PaymentDialog = ({ open, onClose, product }) => {
 
   const handlePay = async () => {
     if (!phone || !product) return;
-
     setLoading(true);
     try {
-      const res = await axios.post('https://6f84583e3ade.ngrok-free.app/api/pesapal/initiate/', {
-        phone,
-        amount: product.price.toString(),
-      });
-
-      if (res.data.redirect_url) {
-        setPaymentUrl(res.data.redirect_url);
+      const res = await payForProduct(phone, product.price);
+      if (res.redirect_url) {
+        setPaymentUrl(res.redirect_url);
       } else {
         alert('Failed to get payment URL');
       }
     } catch (err) {
-      alert('Error: ' + (err.response?.data?.error || 'Payment initiation failed.'));
+      alert('Error: ' + err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleIframeLoad = () => {
-    setIframeLoaded(true);
-  };
+  const handleIframeLoad = () => setIframeLoaded(true);
 
   const resetDialog = () => {
     setPhone('');
@@ -267,3 +261,4 @@ const PaymentDialog = ({ open, onClose, product }) => {
 };
 
 export default PaymentDialog;
+
