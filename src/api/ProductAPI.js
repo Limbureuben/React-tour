@@ -1,5 +1,5 @@
 const BASE_URL = 'http://localhost:8000';
-const URL = 'https://99d96fe7aa16.ngrok-free.app';
+const URL = 'https://6f84583e3ade.ngrok-free.app';
 
 
 export async function userProductAPI() {
@@ -112,7 +112,7 @@ export async function paymentAPI(paymentData) {
 
 
 export async function initiatePaymentAPI(phone, amount) {
-  const res = await fetch(`${BASE_URL}/api/pesapal/initiate/`, {
+  const res = await fetch(`${URL}/api/pesapal/initiate/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
