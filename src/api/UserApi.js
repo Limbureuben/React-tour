@@ -233,7 +233,7 @@ export async function landingproductAPI() {
 }
 
 
-export default async function fetchProfile() {
+export async function fetchProfile() {
   const res = await fetch(`${BASE_URL}/api/profile`, {
     method: 'GET',
     headers: {
