@@ -177,7 +177,7 @@ import {
   Button, TextField, Typography, CircularProgress, Box
 } from '@mui/material';
 // import { payForProduct } from '../services/paymentService'; // adjust path if needed
-import { payForProduct } from '../../services/ProductService'
+import { initiatePayment } from '../../services/ProductService'
 
 const PaymentDialog = ({ open, onClose, product }) => {
   const [phone, setPhone] = useState('');
@@ -189,7 +189,7 @@ const PaymentDialog = ({ open, onClose, product }) => {
     if (!phone || !product) return;
     setLoading(true);
     try {
-      const res = await payForProduct(phone, product.price);
+      const res = await initiatePayment(phone, product.price);
       if (res.redirect_url) {
         setPaymentUrl(res.redirect_url);
       } else {
