@@ -1,5 +1,5 @@
 import { fetchproductAPI,  createProductAPI, deleteProductAPI, updateProductAPI } from "../api/UserApi";
-import { RatingAPI, toggleFavoriteAPI, paymentAPI } from '../api/ProductAPI'
+import { RatingAPI, toggleFavoriteAPI, paymentAPI, initiatePaymentAPI } from '../api/ProductAPI'
 
 
 export async function fetchProducts(page = 1) {
@@ -75,5 +75,15 @@ export async function createPayment(paymentData) {
     return response;
   } catch (error) {
     throw new Error(error.message || 'Payment failed');
+  }
+}
+
+
+export async function initiatePayment(phone, amount) {
+  try {
+    const response = await initiatePaymentAPI(phone, amount);
+    return response;
+  } catch (err) {
+    throw new Error(err.message);
   }
 }

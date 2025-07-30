@@ -108,3 +108,21 @@ export async function paymentAPI(paymentData) {
     transactionId: json.transactionId
   }
 }
+
+
+
+export async function initiatePaymentAPI(phone, amount) {
+  const res = await fetch(`${BASE_URL}/api/pesapal/initiate/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ phone, amount }),
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.message || 'Payment failed');
+  }
+  return data;
+}
