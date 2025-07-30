@@ -176,8 +176,7 @@ import {
   Dialog, DialogTitle, DialogContent, DialogActions,
   Button, TextField, Typography, CircularProgress, Box
 } from '@mui/material';
-// import { payForProduct } from '../services/paymentService'; // adjust path if needed
-import { initiatePayment } from '../../services/ProductService'
+import { initiatePayment } from '../../services/ProductService';
 
 const PaymentDialog = ({ open, onClose, product }) => {
   const [phone, setPhone] = useState('');
@@ -213,12 +212,28 @@ const PaymentDialog = ({ open, onClose, product }) => {
   };
 
   return (
-    <Dialog open={open} onClose={resetDialog} fullWidth maxWidth="md">
-      <DialogTitle>Pay for {product?.name}</DialogTitle>
+    <Dialog
+      open={open}
+      onClose={resetDialog}
+      fullWidth
+      maxWidth="xs"
+      PaperProps={{
+        sx: {
+          borderRadius: 4,
+          paddingX: 2,
+          paddingY: 1.5,
+          backgroundColor: '#fafafa',
+        }
+      }}
+    >
+      <DialogTitle sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+        Pay for <span style={{ color: '#1976d2' }}>{product?.name}</span>
+      </DialogTitle>
+
       <DialogContent>
         {!paymentUrl ? (
           <>
-            <Typography sx={{ mb: 2 }}>
+            <Typography variant="body1" sx={{ mb: 2, textAlign: 'center' }}>
               Enter your phone number to receive the payment prompt:
             </Typography>
             <TextField
@@ -228,10 +243,25 @@ const PaymentDialog = ({ open, onClose, product }) => {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               disabled={loading}
+              sx={{
+                backgroundColor: '#fff',
+                borderRadius: 1,
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#ccc',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#1976d2',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#1976d2',
+                  },
+                },
+              }}
             />
           </>
         ) : (
-          <Box sx={{ height: 500, position: 'relative' }}>
+          <Box sx={{ height: 400, position: 'relative', borderRadius: 2, overflow: 'hidden' }}>
             {!iframeLoaded && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                 <CircularProgress />
@@ -248,11 +278,14 @@ const PaymentDialog = ({ open, onClose, product }) => {
           </Box>
         )}
       </DialogContent>
-      <DialogActions>
-        <Button onClick={resetDialog} disabled={loading}>Close</Button>
+
+      <DialogActions sx={{ justifyContent: 'center', mt: 2 }}>
+        <Button onClick={resetDialog} variant="outlined" color="error" disabled={loading}>
+          Close
+        </Button>
         {!paymentUrl && (
-          <Button onClick={handlePay} variant="contained" disabled={loading}>
-            {loading ? <CircularProgress size={24} /> : 'Pay Now'}
+          <Button onClick={handlePay} variant="contained" disabled={loading} sx={{ ml: 2 }}>
+            {loading ? <CircularProgress size={22} color="inherit" /> : 'Pay Now'}
           </Button>
         )}
       </DialogActions>
