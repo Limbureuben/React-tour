@@ -227,7 +227,7 @@ const PaymentDialog = ({ open, onClose, product }) => {
       }}
     >
       <DialogTitle sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-        Pay for <span style={{ color: '#1976d2' }}>{product?.name}</span>
+        PAYMENTS FOR <span style={{ color: '#06923E' }}>{product?.name}</span>
       </DialogTitle>
 
       <DialogContent>
@@ -251,10 +251,10 @@ const PaymentDialog = ({ open, onClose, product }) => {
                     borderColor: '#ccc',
                   },
                   '&:hover fieldset': {
-                    borderColor: '#1976d2',
+                    borderColor: '#06923E',
                   },
                   '&.Mui-focused fieldset': {
-                    borderColor: '#1976d2',
+                    borderColor: '#06923E',
                   },
                 },
               }}
@@ -284,7 +284,7 @@ const PaymentDialog = ({ open, onClose, product }) => {
           Close
         </Button>
         {!paymentUrl && (
-          <Button onClick={handlePay} variant="contained" disabled={loading} sx={{ ml: 2 }}>
+          <Button onClick={handlePay} variant="contained" disabled={loading} sx={{ ml: 2, backgroundColor: '#06923E', color: '#fff' }}>
             {loading ? <CircularProgress size={22} color="inherit" /> : 'Pay Now'}
           </Button>
         )}
