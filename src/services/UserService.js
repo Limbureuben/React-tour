@@ -48,7 +48,7 @@ export async function createUser(data) {
 
 
 export const getProfile = async () => {
-  const token = localStorage.getItem('token'); // adjust as needed
+  const token = localStorage.getItem('authToken'); // adjust as needed
   if (!token) throw new Error('No token found');
 
   return await fetchProfile(token);
