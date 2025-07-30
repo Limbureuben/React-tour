@@ -233,7 +233,7 @@ const PaymentDialog = ({ open, onClose, product }) => {
       <DialogContent>
         {!paymentUrl ? (
           <>
-            <Typography variant="body1" sx={{ mb: 2, textAlign: 'center' }}>
+            <Typography variant="body1" sx={{ mb: 0, textAlign: 'center' }}>
               Enter your phone number to receive the payment prompt:
             </Typography>
             <TextField
@@ -261,7 +261,7 @@ const PaymentDialog = ({ open, onClose, product }) => {
             />
           </>
         ) : (
-          <Box sx={{ height: 400, position: 'relative', borderRadius: 2, overflow: 'hidden' }}>
+          <Box sx={{ height: 400, position: 'relative', borderRadius: 0, overflow: 'hidden' }}>
             {!iframeLoaded && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                 <CircularProgress />
