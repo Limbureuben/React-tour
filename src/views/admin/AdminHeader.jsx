@@ -1,15 +1,18 @@
-// src/components/Header/Header.jsx
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import {
-  AppBar, Toolbar, Typography, IconButton, Badge,
-  Menu, MenuItem, Avatar, Dialog, DialogTitle, DialogContent, Card, CardContent
+  AppBar, Toolbar, Typography, IconButton, Badge, Avatar, Menu, MenuItem,
+  Box, Dialog, DialogTitle, DialogContent, DialogActions, Button, CircularProgress
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { getProfile } from '../../services/UserService';
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openProfile, setOpenProfile] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const open = Boolean(anchorEl);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -19,15 +22,30 @@ const Header = () => {
     setAnchorEl(null);
   };
 
+  // Fetch profile when dialog opens
+  useEffect(() => {
+    if (profileOpen) {
+      setLoading(true);
+      getProfile()
+        .then(data => {
+          setProfile(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error('Failed to fetch profile:', err);
+          setLoading(false);
+        });
+    }
+  }, [profileOpen]);
+
   const handleProfileClick = () => {
-    setOpenProfile(true);
     handleMenuClose();
+    setProfileOpen(true);
   };
 
-  const handleLogout = () => {
-    // TODO: implement logout logic
-    console.log('Logout clicked');
-    handleMenuClose();
+  const handleProfileClose = () => {
+    setProfileOpen(false);
+    setProfile(null);
   };
 
   return (
@@ -37,38 +55,66 @@ const Header = () => {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             ADMIN STORE
           </Typography>
+
           <IconButton color="inherit">
             <Badge badgeContent={56} color="error">
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit" onClick={handleMenuOpen}>
-            <Avatar sx={{ bgcolor: '#fff', color: '#06923E' }}>
-              <AccountCircleIcon />
-            </Avatar>
-          </IconButton>
+
+          <Box sx={{ ml: 2 }}>
+            <IconButton
+              onClick={handleMenuOpen}
+              sx={{
+                p: 0,
+                border: '2px solid transparent',
+                '&:hover': { borderColor: 'white' }
+              }}
+            >
+              <Avatar
+                alt="Admin"
+                src="/profile.jpg"
+                sx={{ width: 36, height: 36 }}
+              />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleMenuClose}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+              <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            </Menu>
+          </Box>
         </Toolbar>
       </AppBar>
 
-      {/* Dropdown Menu */}
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-        <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-      </Menu>
-
       {/* Profile Dialog */}
-      <Dialog open={openProfile} onClose={() => setOpenProfile(false)}>
-        <DialogTitle>My Profile</DialogTitle>
-        <DialogContent>
-          <Card variant="outlined" sx={{ minWidth: 300 }}>
-            <CardContent>
-              <Typography variant="h6">John Doe</Typography>
-              <Typography variant="body2">Email: johndoe@example.com</Typography>
-              <Typography variant="body2">Role: Administrator</Typography>
-              {/* Add dynamic data here if you fetch it from backend */}
-            </CardContent>
-          </Card>
+      <Dialog open={profileOpen} onClose={handleProfileClose}>
+        <DialogTitle>Admin Profile</DialogTitle>
+        <DialogContent dividers>
+          {loading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+              <CircularProgress />
+            </Box>
+          ) : profile ? (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              <Avatar src="/profile.jpg" sx={{ width: 60, height: 60 }} />
+              <Box>
+                <Typography variant="subtitle1"><strong>Name:</strong> {profile.name || profile.username}</Typography>
+                <Typography variant="subtitle2"><strong>Email:</strong> {profile.email}</Typography>
+                <Typography variant="body2"><strong>Role:</strong> {profile.role}</Typography>
+              </Box>
+            </Box>
+          ) : (
+            <Typography color="error">Failed to load profile data.</Typography>
+          )}
         </DialogContent>
+        <DialogActions>
+          <Button onClick={handleProfileClose} color="primary">Close</Button>
+        </DialogActions>
       </Dialog>
     </>
   );

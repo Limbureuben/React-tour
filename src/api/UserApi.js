@@ -231,3 +231,19 @@ export async function landingproductAPI() {
 
   return json.products;
 }
+
+
+export default async function fetchProfile() {
+  const res = await fetch(`${BASE_URL}/api/profile`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch profile');
+  }
+  return res.json();
+}
